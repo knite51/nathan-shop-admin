@@ -27,13 +27,9 @@
                      <div class="col-md-6">
                        <div class="form-group">
                          <label for="description">Shop: <span class="text-danger">*</span></label>
-                         <select class="form-control" placeholder="Description" [(ngModel)]="categoryDetails.shop"
-                           name="description" required>
-                           <option value="">Select Shop</option>
-                           <option [value]="shop.uuid" *ngFor="let shop of shopList">{{shop.name}} -
-                             <b>{{shop.uniqueId}}</b>
-                           </option>
-                         </select>
+                         <input type="text" class="form-control"
+                           value="{{loggedInShop.name}} - {{loggedInShop.address | shorten}}" required name="shopName"
+                           disabled>
                        </div>
                      </div>
                      <div class="col-md-6">

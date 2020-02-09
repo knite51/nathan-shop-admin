@@ -53,6 +53,8 @@ export class AuthService {
       : null;
     this.localstorage.deleteFromLocalStorage("token");
     this.localstorage.deleteFromLocalStorage("ShopAdminUserInfo");
+    this.localstorage.deleteFromLocalStorage("ShopDetails");
+
     this.router.navigate(["/login"]);
     // if (redirectUrl) {
     //   this.router.navigate(["/login"], {

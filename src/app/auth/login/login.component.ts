@@ -51,13 +51,20 @@ export class LoginComponent implements OnInit {
           console.log(res, "respinse");
           const {
             access_token,
-            user: { email, first_name, last_name }
+            user: { email, first_name, last_name },
+            shop: { uuid, name, address, city }
           } = res;
           this.localStorage.saveToLocalStorage("token", access_token);
           this.localStorage.saveToLocalStorage("ShopAdminUserInfo", {
             email,
             first_name,
             last_name
+          });
+          this.localStorage.saveToLocalStorage("ShopDetails", {
+            uuid,
+            name,
+            address,
+            city
           });
           // reset all other api calls headers
           this.endpoints.httpStatus = "allCalls";

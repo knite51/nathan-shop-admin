@@ -18,19 +18,7 @@
                        </div>
 
                        <div class="col-md-6">
-                         <select class="custom-select d-block w-100"
-                           style="border-right: none;margin: 3em 0 0 0; width: 50% !important; float: right;"
-                           name="filter" (change)="handleShopCategoriesFetch($event.target.value)">
-                           <option *ngIf="reload">{{seletectedShop}}</option>
 
-                           <!-- <option value="" selected>Select Shop</option> -->
-                           <!-- <option [value]="shop.uuid" *ngFor="let shop of shopList">Fetch Shop - <b>{{shop.name}}</b>
-                           </option> -->
-                           <option value="{{shop.uuid}}&{{shop.name}}&{{shop.uniqueId}}" *ngFor="let shop of shopList">
-                             {{shop.name}} -
-                             <b>{{shop.uniqueId}}</b>
-                           </option>
-                         </select>
                        </div>
 
 
@@ -60,7 +48,7 @@
                                <thead>
                                  <tr>
                                    <th>Index</th>
-                                   <th>Shop Name</th>
+                                   <!-- <th>Shop Name</th> -->
                                    <th>Category Name</th>
                                    <th>Slug</th>
                                    <th>Image</th>
@@ -71,8 +59,7 @@
                                  <tr *ngFor="let data of dataSourceCategories; let i = index">
                                    <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
                                      {{i + paginationUrl.viewCountStart}}</td>
-                                   <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
-                                     {{seletectedShop}}</td>
+
                                    <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
                                      {{data.name}}</td>
                                    <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
@@ -97,9 +84,7 @@
                              </table>
 
                              <ng-template #noItems>
-                               <mat-card class="text-center">No Items Available For <b>
-                                   {{seletectedShop}}
-                                 </b>
+                               <mat-card class="text-center">No Items Available
                                </mat-card>
                              </ng-template>
 

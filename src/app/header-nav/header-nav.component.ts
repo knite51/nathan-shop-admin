@@ -9,6 +9,7 @@ import { LocalStorageService } from "../utils/localStorage.service";
 })
 export class HeaderNavComponent implements OnInit {
   userDetails: any = {};
+  shopDetails: any = {};
   constructor(
     private localstorage: LocalStorageService,
     private authServ: AuthService
@@ -17,6 +18,9 @@ export class HeaderNavComponent implements OnInit {
   ngOnInit() {
     this.userDetails = JSON.parse(
       this.localstorage.getFromLocalStorage("ShopAdminUserInfo")
+    );
+    this.shopDetails = JSON.parse(
+      this.localstorage.getFromLocalStorage("ShopDetails")
     );
   }
 

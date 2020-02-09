@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
 import { GeneralService } from "src/app/services/general.service";
 import { BehaviorSubject } from "rxjs";
+import { LocalStorageService } from "src/app/utils/localStorage.service";
 
 @Component({
   selector: "app-list-category",
@@ -20,75 +21,31 @@ export class ListCategoryComponent implements OnInit {
   };
   pageNumber = 1;
   dateFilter = { from: "", to: "" };
-  isAdminUser = true;
 
   dataSourceCategories = [];
-  shopList;
-  seletectedShop = "";
-
-  reload = false;
-  reloadDetails = [];
+  loggedInShop: any = {};
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private endpoint: EndpointsService,
-    private genServ: GeneralService
+    private genServ: GeneralService,
+    localStorage: LocalStorageService
   ) {
+    this.loggedInShop = JSON.parse(
+      localStorage.getFromLocalStorage("ShopDetails")
+    );
+    const shopId = this.loggedInShop.uuid;
     this.route.params.subscribe((par: Params) => {
       const { pageNumber } = par;
-      if (this.route.snapshot.queryParams.reload) {
-        this.reloadDetails = this.route.snapshot.queryParams.reload.split("/");
-        this.reload = true;
-        Number(pageNumber) === 1
-          ? this.getShops(this.reloadDetails)
-          : this.handleReloadOnPagination(pageNumber, this.reloadDetails[0]);
-      } else {
-        this.reload = false;
-        Number(pageNumber) === 1
-          ? this.getShops()
-          : this.handleReloadOnPagination(pageNumber);
-      }
+
+      Number(pageNumber) === 1
+        ? this.getCategories(shopId)
+        : this.handleReloadOnPagination(pageNumber, shopId);
     });
   }
 
   ngOnInit() {}
-
-  private getShops(shopReload?) {
-    const apiUrl = `${this.endpoint.shopUrl.createGetUpdateDeleteShop}/list?for=list`;
-    if (!shopReload) {
-      this.endpoint.fetch(apiUrl).subscribe((res: any) => {
-        const { data } = res;
-
-        this.shopList = this.uniquifyShopName(data);
-        this.seletectedShop = `${this.shopList[0].name} - ${this.shopList[0].uniqueId}`;
-        this.getCategories(data[0].uuid);
-        this.router.navigate(["/productInsight/categories/pages/1/"], {
-          queryParams: {
-            reload: `${data[0].uuid} / ${data[0].name}`
-          }
-        });
-      });
-    } else {
-      this.endpoint.fetch(apiUrl).subscribe((res: any) => {
-        const { data } = res;
-        console.log(data, "data -reload");
-        this.shopList = this.uniquifyShopName(data);
-        this.seletectedShop = `${shopReload[1]}`;
-        this.getCategories(shopReload[0]);
-      });
-    }
-  }
-
-  private uniquifyShopName(shopArrayObj) {
-    let newArr = shopArrayObj.map(res => {
-      const splitAddres = res.address.split(" ");
-      res.uniqueId = `${splitAddres[0]} ${splitAddres[1]}`;
-      return res;
-    });
-    // console.log(newArr, "newgirl");
-    return newArr;
-  }
 
   private getCategories(id) {
     const apiUrl = `${this.endpoint.categoriesUrl.getUpdateCategoryByShops}/list/${id}`;
@@ -125,8 +82,8 @@ export class ListCategoryComponent implements OnInit {
 
   applyFilter(filterValue) {
     if (filterValue) {
-      const apiUrl = `${this.endpoint.categoriesUrl.getUpdateCategoryByShops}/${
-        this.reloadDetails[0]
+      const apiUrl = `${
+        this.endpoint.categoriesUrl.getUpdateCategoryByShops
       }/search?q=${filterValue.toLowerCase()}`;
       this.endpoint.fetch(apiUrl).subscribe((res: any) => {
         res !== null
@@ -134,7 +91,7 @@ export class ListCategoryComponent implements OnInit {
           : (this.dataSourceCategories = []);
       });
     } else {
-      this.getCategories(this.reloadDetails[0]);
+      this.getCategories(this.loggedInShop.uuid);
       this.paginationUrl = {
         next: "",
         prev: "",
@@ -144,44 +101,19 @@ export class ListCategoryComponent implements OnInit {
     }
   }
 
-  handleShopCategoriesFetch(formValue) {
-    const spiltFormValue = formValue.split("&");
-    const shopUUID = spiltFormValue[0],
-      shopName = spiltFormValue[1],
-      uniqueId = spiltFormValue[2];
-    this.seletectedShop = `${shopName} - ${uniqueId}`;
-    // this.getOrdersByShop(shopUUID);
-
-    this.reload = false;
-    this.getCategories(shopUUID);
-    // this.seletectedShop = this.shopList.filter(res => res.uuid === id);
-    const reload = {
-      id: shopUUID,
-      name: shopName
-    };
-    this.reloadDetails = [reload.id, reload.name];
-    this.router.navigate(["/productInsight/categories/pages/1/"], {
-      queryParams: {
-        reload: `${reload.id} / ${reload.name}`
-      }
-    });
-  }
-
-  handleReloadOnPagination(pageNumber, shopReloadId?) {
-    if (shopReloadId) {
-      this.endpoint
-        .fetchPaginationPage(
-          `https://api-dev.natanshield.com/api/v1/super/category/list/${shopReloadId[0]}?perPage=10&page=${pageNumber}`
-        )
-        .subscribe(res => {
-          this.paginationUrl = {
-            ...this.paginationUrl,
-            viewCountStart: 10 * pageNumber + 1 - 10,
-            viewCountEnd: 10 * pageNumber
-          };
-          this.setDataSource(res);
-        });
-    }
+  handleReloadOnPagination(pageNumber, shopId) {
+    this.endpoint
+      .fetchPaginationPage(
+        `https://api-dev.natanshield.com/api/v1/category/list/${shopId}?perPage=10&page=${pageNumber}`
+      )
+      .subscribe(res => {
+        this.paginationUrl = {
+          ...this.paginationUrl,
+          viewCountStart: 10 * pageNumber + 1 - 10,
+          viewCountEnd: 10 * pageNumber
+        };
+        this.setDataSource(res);
+      });
   }
 
   handlePagination(type) {
@@ -196,11 +128,7 @@ export class ListCategoryComponent implements OnInit {
     const pageNumber = url.includes("page=")
       ? url.substring(pageNumberIndex)
       : 1;
-    this.router.navigate(["/productInsight/categories/pages/", pageNumber], {
-      queryParams: {
-        reload: `${this.reloadDetails[0]} / ${this.reloadDetails[1]}`
-      }
-    });
+    this.router.navigate(["/productInsight/categories/pages/", pageNumber]);
   }
 
   hidShowPlaceHolder(value, type) {
@@ -242,7 +170,7 @@ export class ListCategoryComponent implements OnInit {
             console.log(res);
             const { status_code } = res;
             if (status_code === 200) {
-              this.getShops();
+              this.getCategories(this.loggedInShop.uuid);
               this.genServ.sweetAlertSucess(
                 "Category Deleted",
                 "Deletion Successful"

@@ -45,13 +45,9 @@
                      <div class="col-md-6">
                        <div class="form-group">
                          <label for="description">Add Product to Shop: <span class="text-danger">*</span></label>
-                         <select class="form-control" placeholder="Description" name="description" required
-                           (change)="handleGetCategoryByShop($event.target.value)" [(ngModel)]="product.shop">
-                           <option value="">Select Shop</option>
-                           <option [value]="shop.uuid" *ngFor="let shop of shopList">{{shop.name}} -
-                             <b>{{shop.uniqueId}}</b>
-                           </option>
-                         </select>
+                         <input type="text" class="form-control"
+                           value="{{loggedInShop.name}} - {{loggedInShop.address | shorten}}" required name="shopName"
+                           disabled>
                        </div>
                      </div>
                      <div class="col-md-6">
@@ -146,8 +142,7 @@
                    <div class="card-footer ml-auto">
                      <button type="button" (click)="handleProductCreation()"
                        class="btn btn-outline-success mr-1">Submit</button>
-                     <!-- <button type="button"
-            class="btn btn-outline-danger" [routerLink]="/productInsight">Cancel</button> -->
+
                    </div>
                  </form>
 
@@ -157,12 +152,9 @@
                        <div class="col-md-6">
                          <div class="form-group">
                            <label for="description">Add Product to Shop: <span class="text-danger">*</span></label>
-                           <select class="form-control" placeholder="Description" name="description"
-                             [(ngModel)]="seletectedShopId" required>
-                             <option value="">Select Shop</option>
-                             <option [value]="shop.uuid" *ngFor="let shop of shopList">
-                               {{shop.name}}</option>
-                           </select>
+                           <input type="text" class="form-control"
+                             value="{{loggedInShop.name}} - {{loggedInShop.address | shorten}}" required name="shopName"
+                             disabled>
                          </div>
                        </div>
 

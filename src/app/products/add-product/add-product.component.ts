@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { GeneralService } from "src/app/services/general.service";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
 import { ActivatedRoute } from "@angular/router";
+import { LocalStorageService } from "src/app/utils/localStorage.service";
 
 @Component({
   selector: "app-add-product",
@@ -28,8 +29,8 @@ export class AddProductComponent implements OnInit {
 
   uploadImage = new FormData();
   uploadBulkProduct = new FormData();
-  shopList;
-  seletectedShopId;
+
+  loggedInShop: any = {};
   categories;
   viewType = "single";
   CSV = false;
@@ -37,8 +38,14 @@ export class AddProductComponent implements OnInit {
   constructor(
     private endpoints: EndpointsService,
     private genServ: GeneralService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private localStorage: LocalStorageService
   ) {
+    this.loggedInShop = JSON.parse(
+      this.localStorage.getFromLocalStorage("ShopDetails")
+    );
+    // set shop id
+    this.product.shop = this.loggedInShop.uuid;
     this.route.queryParams.subscribe(res => {
       const { productAddType } = res;
       if (productAddType) {
@@ -50,25 +57,7 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getShops();
-  }
-
-  private getShops() {
-    const apiUrl = `${this.endpoints.shopUrl.createGetUpdateDeleteShop}/list?for=list`;
-    this.endpoints.fetch(apiUrl).subscribe((res: any) => {
-      const { data } = res;
-      this.shopList = this.uniquifyShopName(data);
-    });
-  }
-
-  private uniquifyShopName(shopArrayObj) {
-    let newArr = shopArrayObj.map(res => {
-      const splitAddres = res.address.split(" ");
-      res.uniqueId = `${splitAddres[0]} ${splitAddres[1]}`;
-      return res;
-    });
-    // console.log(newArr, "newgirl");
-    return newArr;
+    this.getCategories(this.loggedInShop.uuid);
   }
 
   private getCategories(id) {
@@ -91,10 +80,6 @@ export class AddProductComponent implements OnInit {
     return !validationFields ? { ...this.product } : validationFields;
   }
 
-  handleGetCategoryByShop(shopId) {
-    this.getCategories(shopId);
-  }
-
   handleFileInput(event) {
     if (event.target.files.length > 0) {
       const image = event.target.files[0];
@@ -109,7 +94,7 @@ export class AddProductComponent implements OnInit {
       if (file.type === "text/csv") {
         this.CSV = true;
 
-        this.uploadBulkProduct.append("shop", this.seletectedShopId);
+        this.uploadBulkProduct.append("shop", this.loggedInShop.uuid);
         this.uploadBulkProduct.append("csv_file", file);
       } else {
         this.CSV = false;

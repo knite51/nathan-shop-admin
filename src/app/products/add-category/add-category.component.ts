@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { GeneralService } from "src/app/services/general.service";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { LocalStorageService } from "src/app/utils/localStorage.service";
 
 @Component({
   selector: "app-add-category",
@@ -15,34 +16,22 @@ export class AddCategoryComponent implements OnInit {
     name: ""
   };
   formData = new FormData();
+  loggedInShop: any = {};
   constructor(
     private genServ: GeneralService,
     private endpoints: EndpointsService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit() {
-    this.getShops();
+    private route: ActivatedRoute,
+    private localStorage: LocalStorageService
+  ) {
+    this.loggedInShop = JSON.parse(
+      this.localStorage.getFromLocalStorage("ShopDetails")
+    );
+    // set shop id
+    this.categoryDetails.shop = this.loggedInShop.uuid;
   }
 
-  private getShops() {
-    const apiUrl = `${this.endpoints.shopUrl.createGetUpdateDeleteShop}/list?for=list`;
-    this.endpoints.fetch(apiUrl).subscribe((res: any) => {
-      const { data } = res;
-      this.shopList = this.uniquifyShopName(data);
-    });
-  }
-
-  private uniquifyShopName(shopArrayObj) {
-    let newArr = shopArrayObj.map(res => {
-      const splitAddres = res.address.split(" ");
-      res.uniqueId = `${splitAddres[0]} ${splitAddres[1]}`;
-      return res;
-    });
-    // console.log(newArr, "newgirl");
-    return newArr;
-  }
+  ngOnInit() {}
 
   private get categoryValidatedDetails() {
     let validationFields = "";
