@@ -1,0 +1,346 @@
+   <div class="app-content">
+     <div class="content-wrapper">
+       <div class="content-header row mb-1">
+         <div class="content-header-left col-md-6 col-12 mb-2">
+           <h3 class="content-header-title">View Product</h3>
+           <div class="row breadcrumbs-top">
+             <div class="breadcrumb-wrapper col-12">
+               <ol class="breadcrumb">
+                 <li class="breadcrumb-item"><a style="color: #00BCD4;" (click)=" backToPreviousPage()">Home</a>
+                 </li>
+                 <li class="breadcrumb-item active">View Product
+                 </li>
+               </ol>
+             </div>
+           </div>
+         </div>
+         <div class="content-header-right col-md-6 col-12">
+           <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
+             <button class="btn btn-info round box-shadow-2 px-2" type="button" (click)="handleEditView('edit')"
+               *ngIf="!editView; else tt">
+               <i class="ft-settings icon-left"></i>
+               Edit
+             </button>
+             <ng-template #tt>
+               <button class="btn btn-warning round box-shadow-2 px-2" type="button" (click)="handleEditView('back')">
+                 <i class="ft-arrow-left icon-left"></i>
+                 Cancel
+               </button>
+             </ng-template>
+             <button class="btn btn-danger round box-shadow-2 px-2" (click)="handleProductDelete()" type="button">
+               <i class="ft-trash-2 icon-left"></i>
+               Delete
+             </button>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <div class="content-body">
+       <!-- Create Product -->
+       <section id="book-appointment" *ngIf="editView; else overview">
+         <div class="card">
+           <div class="card-header">
+             <h2 class="card-title">Create Product</h2>
+           </div>
+           <div class="card-body">
+             <form>
+
+               <div class="row">
+                 <div class="col-md-6">
+                   <div class="form-group">
+                     <label for="description">Add Product to Shop: <span class="text-danger">*</span></label>
+                     <input type="text" class="form-control" placeholder="Shop" [(ngModel)]="selectedShop" required
+                       name="shop" disabled>
+
+                   </div>
+                 </div>
+                 <div class="col-md-6">
+                   <div class="form-group">
+                     <label for="firstname">Product Name: <span class="text-danger">*</span></label>
+                     <input type="text" class="form-control" placeholder="Product Name" [(ngModel)]="product.name"
+                       required name="productName">
+                   </div>
+                 </div>
+
+               </div>
+               <div class="row">
+                 <div class="col-lg-3 col-md-6">
+                   <div class="form-group">
+                     <label for="sku">SKU: <span class="text-danger">*</span></label>
+                     <input type="text" class="form-control" name="sku" [(ngModel)]="product.sku" required>
+                   </div>
+                 </div>
+                 <div class="col-lg-3 col-md-6">
+                   <div class="form-group">
+                     <label for="gender">Weight:</label>
+                     <input type="text" class="form-control" name="weight" [(ngModel)]="product.options[0].weight">
+                   </div>
+                 </div>
+                 <div class="col-lg-3 col-md-6">
+                   <div class="form-group">
+                     <label for="size">Size: </label>
+                     <!-- <input type="text" class="form-control" name="size" > -->
+                     <select name="size" id="" class="form-control" [(ngModel)]="product.options[0].size">
+                       <option value="">Select</option>
+                       <option value="xl">XL</option>
+                       <option value="l">L</option>
+                       <option value="m">M</option>
+                       <option value="s">S</option>
+                       <option value="xs">XS</option>
+
+
+                     </select>
+                   </div>
+                 </div>
+                 <div class="col-lg-3 col-md-6">
+                   <div class="form-group">
+                     <label for="date">Color: </label>
+                     <input type="text" class="form-control" name="color" [(ngModel)]="product.options[0].color">
+                   </div>
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-md-6">
+
+                   <div class="form-group">
+                     <label for="category">Category <span class="text-danger">*</span></label>
+                     <select class="form-control" name="category" placeholder="category"
+                       [(ngModel)]="product.category.uuid">
+                       <option [value]="category.uuid" *ngFor="let category of categories">{{category.name}}
+                       </option>
+                     </select>
+
+                   </div>
+
+                 </div>
+                 <div class="col-md-6">
+                   <div class="form-group">
+                     <label for="uploads">Price: <span class="text-danger">*</span></label>
+                     <input type="number" class="form-control" name="price" placeholder="Price" required
+                       [(ngModel)]="product.price">
+                   </div>
+                 </div>
+
+               </div>
+
+               <div class="row">
+
+                 <div class="col-md-6">
+                   <div class="form-group">
+                     <label for="description">Description: <span class="text-danger">*</span></label>
+                     <textarea class="form-control" cols="4" placeholder="Description" [(ngModel)]="product.description"
+                       name="description" required> </textarea>
+                   </div>
+                 </div>
+
+                 <div class="col-md-6">
+                   <div class="form-group">
+                     <label for="uploads">Upload Product Images:</label>
+                     <input type="file" class="form-control" name="productImages" (change)="handleFileInput($event)"
+                       placeholder="Upload ..." required>
+                   </div>
+                 </div>
+
+               </div>
+
+               <div class="card-footer ml-auto">
+                 <button type="button" (click)="handleProductUpdate()"
+                   class="btn btn-outline-success mr-1">Submit</button>
+                 <!-- <button type="button"
+                   class="btn btn-outline-danger" [routerLink]="/productInsight">Cancel</button> -->
+               </div>
+             </form>
+           </div>
+         </div>
+       </section>
+
+       <ng-template #overview>
+         <div class="product-detail">
+
+           <div class="card">
+             <div class="card-body">
+               <div class="card-content">
+                 <div class="row">
+                   <div class="col-4">
+                     <div class="product-img d-flex align-items-center"
+                       style="height: auto; min-height: auto; background: transparent; margin-top: 2em;">
+
+                       <span *ngIf="product.images.length > 0; else noImage">
+                         <div style="margin-left: 8px;" id="steady-spinner" *ngIf="!imageLoaded;"></div>
+
+
+                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                           <ol class="carousel-indicators">
+                             <li data-target="#carousel-example-generic" data-slide-to="{{i}"
+                               *ngFor="let image of product.images; let i = index" [ngClass]="{'active': i == '0'}">
+                             </li>
+
+                           </ol>
+                           <div class="carousel-inner" role="listbox">
+                             <div class="carousel-item" *ngFor="let image of product.images; let i = index" [ngClass]="{'active': i == '0'}">
+                               <img [src]="image.url" class="img-fluid mb-1 img-thumbnail"
+                                 style="border-radius: 0px; max-width: 100%;" alt="{{i}} slide" (load)="onImageLoad()">
+                         </div>
+                     </div>
+                   </div>
+
+                   <div class="row">
+                     <div class="col-md-8">
+                       <select name="image" class="form-control" [(ngModel)]="selectedDeleteImage">
+                         <option value="">Select Image to Delete</option>
+                         <option [value]="image.uuid" *ngFor="let image of product.images; let i = index">
+                           Image {{i + 1}}
+                         </option>
+                       </select>
+                     </div>
+                     <div class="col-md-4">
+                       <button style="margin-top:10px;" (click)='handleDeleteImage()' type="button"
+                         class="btn btn-sm btn-danger">Delete?</button>
+                     </div>
+                   </div>
+
+                   </span>
+
+                   <ng-template #noImage>
+                     <mat-card class="text-center">No Image
+                     </mat-card>
+                   </ng-template>
+
+
+                 </div>
+               </div>
+               <div class="col-8">
+                 <div class="title-area clearfix">
+                   <h2 class="product-title float-left">
+                     {{product.name}}
+                   </h2>
+                   <span class="ratings float-right">
+                   </span>
+                 </div>
+                 <div class="price-reviews clearfix">
+                   <span class="price-box">
+                     <span class="price h4">
+                       {{product.price | currency : 'NGN '}}
+                     </span>
+                   </span>
+                 </div>
+                 <!-- Product Information -->
+                 <div class="product-info" style="min-height: 200px;">
+                   <p>
+                     <b>CATEGORY: </b> {{product.category?.name | uppercase}}
+                   </p>
+                   <p>
+                     <b>DESCRIPTION: </b> {{product.description}}
+                   </p>
+                   <p>
+                     <b>SKU: </b> {{product.sku}}
+                   </p>
+                   <p>
+                     <b>SLUG: </b> {{product.slug | uppercase}}
+                   </p>
+                 </div>
+                 <!-- Product Information Ends-->
+
+                 <!-- Color Options -->
+                 <div class="row">
+                   <div class="col-lg-6">
+                     <div class="product-options color-options mb-2">
+                       <ul>
+                         <li>
+                           <span class="option-title">
+                             Color :
+                           </span>
+                         </li>
+                         <span *ngIf="product.options[0].color.toLowerCase() === 'black' ||
+                           product.options[0].color.toLowerCase() ==='yellow' || product.options[0].color.toLowerCase()
+                           === 'green' || product.options[0].color.toLowerCase() === 'red' ||
+                           product.options[0].color.toLowerCase() === 'blue'; else
+                           displayNamedColors">
+                           <li>
+                             <span class="color-info black"
+                               [ngClass]="{'active': product.options[0].color?.toLowerCase() === 'black'}">
+                             </span>
+                           </li>
+                           <li>
+                             <span class="color-info amber"
+                               [ngClass]="{'active': product.options[0].color?.toLowerCase() === 'yellow'}">
+                             </span>
+                           </li>
+                           <li>
+                             <span class="color-info teal"
+                               [ngClass]="{'active': product.options[0].color?.toLowerCase() === 'green'}">
+                             </span>
+                           </li>
+                           <li>
+                             <span class="color-info red"
+                               [ngClass]="{'active': product.options[0].color?.toLowerCase() === 'red'}">
+                             </span>
+                           </li>
+                           <li>
+                             <span class="color-info blue"
+                               [ngClass]="{'active': product.options[0].color?.toLowerCase() === 'blue'}">
+                             </span>
+                           </li>
+                         </span>
+                         <ng-template #displayNamedColors>
+                           <li>
+                             <span>
+                               <b>
+                                 {{product.options[0].color | uppercase}}
+                               </b>
+                             </span>
+                           </li>
+                         </ng-template>
+                       </ul>
+                     </div>
+                   </div>
+                   <div class="col-lg-6">
+                     <!-- Size Options -->
+                     <div class="product-options size-filter mb-3">
+                       <ul>
+                         <li class="option-title">
+                           Size :
+                         </li>
+                         <li [ngClass]="{'active': product.options[0].size.toLowerCase() === 'xl'}">
+                           <span>
+                             XL
+                           </span>
+                         </li>
+                         <li [ngClass]="{'active': product.options[0].size.toLowerCase() === 'l'}">
+                           <span>
+                             L
+                           </span>
+                         </li>
+                         <li [ngClass]="{'active': product.options[0].size.toLowerCase() === 'm'}">
+                           <span>
+                             M
+                           </span>
+                         </li>
+                         <li [ngClass]="{'active': product.options[0].size.toLowerCase() === 's'}">
+                           <span>
+                             S
+                           </span>
+                         </li>
+                         <li [ngClass]="{'active': product.options[0].size.toLowerCase() === 'xs'}">
+                           <span>
+                             XS
+                           </span>
+                         </li>
+                       </ul>
+                     </div>
+                   </div>
+                 </div>
+                 <!-- Color Options Ends-->
+                 <!-- Size Options Ends-->
+
+               </div>
+             </div>
+           </div>
+         </div>
+
+     </div>
+   </div>
+   </ng-template>
+   </div>
+   </div>

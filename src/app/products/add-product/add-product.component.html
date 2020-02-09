@@ -1,0 +1,197 @@
+   <div class="app-content">
+     <div class="content-wrapper">
+       <div class="content-header row mb-1">
+         <div class="content-header-left col-md-6 col-12 mb-2">
+           <h3 class="content-header-title">Create A Product</h3>
+           <div class="row breadcrumbs-top">
+             <div class="breadcrumb-wrapper col-12">
+               <ol class="breadcrumb">
+                 <li class="breadcrumb-item"><a color="blue" routerLink="/productInsight/pages/1">Home</a>
+                 </li>
+                 <li class="breadcrumb-item active">Create Product
+                 </li>
+               </ol>
+             </div>
+           </div>
+         </div>
+         <div class="content-header-right col-md-6 col-12">
+
+         </div>
+       </div>
+       <div class="content-body"></div>
+       <!-- Create Product -->
+       <section id="book-appointment">
+         <div class="row">
+           <div class="col-md-12">
+             <div class="card">
+               <div class="card-header">
+
+
+                 <div class="row">
+                   <div class="col-md-10">
+                     <h4 class="card-title">Create Product</h4>
+                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                   </div>
+                   <div class="col-md-2">
+                     <button class="btn btn-sm btn-blue-grey" routerLink="/productInsight/category/add"
+                       style="float: right;">Create Category ?</button>
+                   </div>
+                 </div>
+               </div>
+               <div class="card-body">
+
+                 <form *ngIf="viewType === 'single'; else bulk">
+                   <div class="row">
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="description">Add Product to Shop: <span class="text-danger">*</span></label>
+                         <select class="form-control" placeholder="Description" name="description" required
+                           (change)="handleGetCategoryByShop($event.target.value)" [(ngModel)]="product.shop">
+                           <option value="">Select Shop</option>
+                           <option [value]="shop.uuid" *ngFor="let shop of shopList">{{shop.name}} -
+                             <b>{{shop.uniqueId}}</b>
+                           </option>
+                         </select>
+                       </div>
+                     </div>
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="firstname">Product Name: <span class="text-danger">*</span></label>
+                         <input type="text" class="form-control" placeholder="Product Name" [(ngModel)]="product.name"
+                           required name="productName">
+                       </div>
+                     </div>
+
+                   </div>
+                   <div class="row">
+                     <div class="col-lg-3 col-md-6">
+                       <div class="form-group">
+                         <label for="sku">SKU: <span class="text-danger">*</span></label>
+                         <input type="text" class="form-control" name="sku" [(ngModel)]="product.sku" required>
+                       </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6">
+                       <div class="form-group">
+                         <label for="gender">Weight:</label>
+                         <input type="text" class="form-control" name="weight" [(ngModel)]="product.options[0].weight">
+                       </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6">
+                       <div class="form-group">
+                         <label for="size">Size: </label>
+                         <!-- <input type="text" class="form-control" name="size" > -->
+                         <select name="size" id="" class="form-control" [(ngModel)]="product.options[0].size">
+                           <option value="">Select</option>
+                           <option value="xl">XL</option>
+                           <option value="l">L</option>
+                           <option value="m">M</option>
+                           <option value="s">S</option>
+                           <option value="xs">XS</option>
+
+
+                         </select>
+                       </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6">
+                       <div class="form-group">
+                         <label for="date">Color: </label>
+                         <input type="text" class="form-control" name="color" [(ngModel)]="product.options[0].color">
+                       </div>
+                     </div>
+                   </div>
+                   <div class="row">
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="category">Category <span class="text-danger">*</span></label>
+                         <select class="form-control" name="category" placeholder="category"
+                           [(ngModel)]="product.category">
+                           <option value="">Select</option>
+                           <option [value]="category.uuid" *ngFor="let category of categories">{{category.name}}
+                           </option>
+
+                         </select>
+
+                       </div>
+                     </div>
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="uploads">Price: <span class="text-danger">*</span></label>
+                         <input type="number" class="form-control" name="price" placeholder="Price" required
+                           [(ngModel)]="product.price">
+                       </div>
+                     </div>
+
+                   </div>
+
+                   <div class="row">
+
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="description">Description: <span class="text-danger">*</span></label>
+                         <textarea class="form-control" cols="4" placeholder="Description"
+                           [(ngModel)]="product.description" name="description" required> </textarea>
+                       </div>
+                     </div>
+
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="uploads">Upload Product Images:</label>
+                         <input type="file" class="form-control" name="productImages" (change)="handleFileInput($event)"
+                           placeholder="Upload ..." required>
+                       </div>
+                     </div>
+
+                   </div>
+
+                   <div class="card-footer ml-auto">
+                     <button type="button" (click)="handleProductCreation()"
+                       class="btn btn-outline-success mr-1">Submit</button>
+                     <!-- <button type="button"
+            class="btn btn-outline-danger" [routerLink]="/productInsight">Cancel</button> -->
+                   </div>
+                 </form>
+
+                 <ng-template #bulk>
+                   <form>
+                     <div class="row">
+                       <div class="col-md-6">
+                         <div class="form-group">
+                           <label for="description">Add Product to Shop: <span class="text-danger">*</span></label>
+                           <select class="form-control" placeholder="Description" name="description"
+                             [(ngModel)]="seletectedShopId" required>
+                             <option value="">Select Shop</option>
+                             <option [value]="shop.uuid" *ngFor="let shop of shopList">
+                               {{shop.name}}</option>
+                           </select>
+                         </div>
+                       </div>
+
+                       <div class="col-md-6">
+                         <div class="form-group">
+                           <label for="uploads">Upload Product Excel File: <small>file format must be
+                               .csv</small></label>
+                           <input type="file" class="form-control" name="productBulk"
+                             (change)="handleFileInputBulk($event)" placeholder="Upload ..." required>
+                         </div>
+                       </div>
+
+                     </div>
+
+                     <div class="card-footer ml-auto">
+                       <button type="button" (click)="handleProductBulkCreation()" class="btn btn-outline-success mr-1"
+                         [disabled]="!CSV">Submit</button>
+
+                     </div>
+                   </form>
+                 </ng-template>
+
+
+               </div>
+             </div>
+           </div>
+
+         </div>
+       </section>
+
+     </div>
+   </div>

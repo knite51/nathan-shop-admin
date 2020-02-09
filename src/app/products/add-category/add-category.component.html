@@ -1,0 +1,72 @@
+   <div class="app-content">
+     <div class="content-wrapper">
+       <div class="content-body"></div>
+       <!-- Create Product -->
+       <section id="book-appointment">
+         <div class="row">
+           <div class="col-md-12">
+             <div class="card">
+
+               <div class="card-header">
+                 <div class="row">
+                   <div class="col-md-10">
+                     <h4 class="card-title">Create Category</h4>
+                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                   </div>
+                   <div class="col-md-2">
+                     <button class="btn btn-sm btn-blue-grey" (click)="backToPreviousPage()"
+                       style="float: right;">Back</button>
+                   </div>
+                 </div>
+                 <hr>
+               </div>
+
+               <div class="card-body">
+                 <form>
+                   <div class="row">
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="description">Shop: <span class="text-danger">*</span></label>
+                         <select class="form-control" placeholder="Description" [(ngModel)]="categoryDetails.shop"
+                           name="description" required>
+                           <option value="">Select Shop</option>
+                           <option [value]="shop.uuid" *ngFor="let shop of shopList">{{shop.name}} -
+                             <b>{{shop.uniqueId}}</b>
+                           </option>
+                         </select>
+                       </div>
+                     </div>
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="firstname">Category Name: <span class="text-danger">*</span></label>
+                         <input type="text" class="form-control" placeholder="Product Name"
+                           [(ngModel)]="categoryDetails.name" required name="productName">
+                       </div>
+                     </div>
+
+                   </div>
+
+                   <div class="row">
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <label for="uploads">Upload Image:</label>
+                         <input type="file" class="form-control" name="productImages" (change)="handleFileInput($event)"
+                           placeholder="Upload ..." required>
+                       </div>
+                     </div>
+
+                   </div>
+
+                   <div class="card-footer ml-auto">
+                     <button type="button" (click)="handleCategoryCreation()"
+                       class="btn btn-outline-success mr-1">Submit</button>
+                   </div>
+                 </form>
+               </div>
+             </div>
+           </div>
+         </div>
+       </section>
+
+     </div>
+   </div>

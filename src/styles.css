@@ -1,0 +1,172 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/vendors/css/vendors.min.css";
+@import "assets/vendors/css/weather-icons/climacons.min.css";
+@import "assets/fonts/meteocons/style.css";
+@import "assets/vendors/css/charts/morris.css";
+@import "assets/vendors/css/charts/chartist.css";
+@import "assets/vendors/css/charts/chartist-plugin-tooltip.css";
+
+@import "assets/css/bootstrap.css";
+@import "assets/css/bootstrap-extended.css";
+@import "assets/css/colors.css";
+@import "assets/css/components.css";
+
+@import "assets/css/core/menu/menu-types/vertical-menu-modern.css";
+@import "assets/css/core/colors/palette-gradient.css";
+@import "assets/fonts/simple-line-icons/style.css";
+@import "assets/css/pages/timeline.css";
+@import "assets/css/pages/dashboard-ecommerce.css";
+
+
+/* Register  */
+@import "assets/vendors/css/forms/icheck/icheck.css";
+@import "assets/vendors/css/forms/icheck/custom.css";
+@import "assets/css/pages/login-register.css";
+
+
+
+/* SHOP */
+
+@import "assets/vendors/css/extensions/nouislider.min.css";
+@import "assets/vendors/css/ui/prism.min.css";
+@import "assets/vendors/css/forms/icheck/icheck.css";
+
+@import "assets/css/plugins/extensions/noui-slider.min.css";
+@import "assets/css/core/colors/palette-noui.css";
+@import "assets/css/pages/ecommerce-shop.css";
+
+
+
+
+#steady-spinner {
+  border: 4px solid lightblue;
+  border-top-color: #09e;
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+  margin: auto;
+  margin-top: 20px;
+  /* border-top-color: green; */
+  animation: spin 1s ease-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.mat-paginator {
+  display: block
+}
+
+.mat-paginator-outer-container {
+  display: flex
+}
+
+.mat-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 56px;
+  padding: 0 8px;
+  flex-wrap: wrap-reverse;
+  width: 100%
+}
+
+.mat-paginator-page-size {
+  display: flex;
+  align-items: baseline;
+  margin-right: 8px
+}
+
+[dir=rtl] .mat-paginator-page-size {
+  margin-right: 0;
+  margin-left: 8px
+}
+
+.mat-paginator-page-size-label {
+  margin: 0 4px
+}
+
+.mat-paginator-page-size-select {
+  margin: 6px 4px 0 4px;
+  width: 56px
+}
+
+.mat-paginator-page-size-select.mat-form-field-appearance-outline {
+  width: 64px
+}
+
+.mat-paginator-page-size-select.mat-form-field-appearance-fill {
+  width: 64px
+}
+
+.mat-paginator-range-label {
+  margin: 0 32px 0 24px
+}
+
+.mat-paginator-range-actions {
+  display: flex;
+  align-items: center
+}
+
+.mat-paginator-icon {
+  width: 28px;
+  fill: currentColor
+}
+
+[dir=rtl] .mat-paginator-icon {
+  transform: rotate(180deg)
+}
+
+button:focus.mat-icon-button {
+  outline: none !important;
+}
+
+td.text-truncate {
+  cursor: pointer !important;
+}
+
+.img-thumbnail {
+  border-radius: 50%;
+  display: inline-block;
+  max-width: 70%;
+  height: auto;
+  padding: 4px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  /* border-radius: 4px; */
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.form-actions {
+  margin-top: 11em;
+  float: right;
+}
+
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.table #fixPadding {
+  padding: 16px 20px !important;
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+  padding: none !important;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}

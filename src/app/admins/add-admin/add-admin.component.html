@@ -1,0 +1,97 @@
+   <div class="app-content">
+     <div class="content-wrapper">
+
+       <div class="content-body"></div>
+       <!-- Create Product -->
+       <section id="book-appointment">
+         <div class="card">
+           <div class="card-header">
+             <div class="row">
+               <div class="col-md-10">
+                 <h4 class="card-title">Create Admin Users</h4>
+                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+               </div>
+               <div class="col-md-2">
+                 <button class="btn btn-sm btn-blue-grey" (click)="backToPreviousPage()"
+                   style="float: right;">Back</button>
+               </div>
+             </div>
+             <hr>
+           </div>
+
+
+           <div class="card-body">
+             <form>
+
+               <div class="row">
+                 <div class="col-lg-6 col-md-6">
+                   <div class="form-group">
+                     <label for="sku">Firstname: <span class="text-danger">*</span></label>
+                     <input type="text" class="form-control" name="firstname" placeholder="First Name"
+                       [(ngModel)]="adminUser.first_name" required>
+                   </div>
+                 </div>
+                 <div class="col-lg-6 col-md-6">
+                   <div class="form-group">
+                     <label for="gender">Lastname:</label>
+                     <input type="text" class="form-control" placeholder="Last Name" name="lastname"
+                       [(ngModel)]="adminUser.last_name" required>
+                   </div>
+                 </div>
+               </div>
+
+               <div class="row">
+                 <div class="col-lg-6 col-md-6">
+                   <div class="form-group">
+                     <label for="gender">Email:</label>
+                     <input type="email" class="form-control" placeholder="Email" name="email"
+                       [(ngModel)]="adminUser.email">
+                   </div>
+                 </div>
+                 <div class="col-lg-6 col-md-6">
+                   <div class="form-group">
+                     <label for="sku">Password: <span class="text-danger">*</span></label>
+                     <input type="password" placeholder="Password" class="form-control" name="password"
+                       [(ngModel)]="adminUser.password" required>
+                   </div>
+                 </div>
+
+               </div>
+
+               <div class="row">
+                 <div class="col-lg-6 col-md-6">
+                   <div class="form-group">
+                     <label for="sku">Role: <span class="text-danger">*</span></label>
+                     <select class="form-control" name="role" [(ngModel)]="adminUser.role" required>
+                       <option value="">Select Role</option>
+                       <option value="lister">Lister</option>
+                       <option value="shopper">Shopper</option>
+                       <option value="shop_assistant">Shop Assistant</option>
+                       <option value="admin">Admin</option>
+                     </select>
+                   </div>
+                 </div>
+
+
+               </div>
+
+
+
+
+
+
+               <div class="card-footer ml-auto">
+                 <button type="button" (click)="handleAdminCreation()"
+                   class="btn btn-outline-success mr-1">Submit</button>
+                 <!-- <button type="button"
+                   class="btn btn-outline-danger" [routerLink]="/productInsight">Cancel</button> -->
+               </div>
+             </form>
+
+
+           </div>
+         </div>
+       </section>
+
+     </div>
+   </div>

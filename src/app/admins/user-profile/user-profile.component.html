@@ -1,0 +1,138 @@
+<div class="row">
+  <div id="recent-transactions" class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-10">
+            <h4 class="card-title">ADMIN USER'S INFORMATION</h4>
+            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+
+        <hr><br />
+
+        <div class="row">
+          <!-- <div class="col-sm-3">
+            <div class="text-center">
+              <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail"
+                alt="avatar">
+              <h6>Upload a different photo...</h6>
+              <input type="file" class="text-center center-block file-upload">
+            </div>
+
+          </div>
+          <div class="col-sm-9">
+            <div class="form-actions top">
+              <button type="submit" class="btn btn-primary mr-1" (click)="handleUpdate()">
+                <i class="la la-check-square-o"></i> Save
+              </button>
+            </div>
+          </div> -->
+
+        </div>
+
+        <form class="form form-horizontal row-separator">
+          <div id="steady-spinner" *ngIf="(profileDetails | json) === '{}'; else displayForm"></div>
+          <ng-template #displayForm>
+            <div class="form-body">
+              <h4 class="form-section"><i class="la la-eye"></i> About User</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-3 label-control" for="userinput1">Fist Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="userinput1" class="form-control border-primary" placeholder="First Name"
+                        name="firstname" [(ngModel)]="profileDetails.first_name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-3 label-control" for="userinput2">Last Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="userinput2" class="form-control border-primary" placeholder="Last Name"
+                        name="lastname" [(ngModel)]="profileDetails.last_name">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-3 label-control" for="userinput5">Email</label>
+                    <div class="col-md-9">
+                      <input class="form-control border-primary" type="email" placeholder="email" name="email"
+                        [(ngModel)]="profileDetails.email">
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-sm-12">
+                  <div class="form-actions top">
+                    <button type="submit" class="btn btn-primary mr-1" (click)="handleUpdate()">
+                      <i class="la la-check-square-o"></i> Update
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <h4 class="form-section"><i class="la la-envelope"></i> Change Password: <small>Password must be 6
+                  charaters long</small></h4>
+              <div class="row">
+
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-4 label-control">Old Password</label>
+                    <div class="col-md-8">
+                      <input class="form-control border-primary" type="password" placeholder="New Password" name="phone"
+                        [(ngModel)]="passwordDetails.old_password">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-4 label-control">New Password</label>
+                    <div class="col-md-8">
+                      <input class="form-control border-primary" type="password" placeholder="New Password" name="phone"
+                        [(ngModel)]="passwordDetails.password">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-4 label-control">Confirm Password</label>
+                    <div class="col-md-8">
+                      <input class="form-control border-primary" type="password" placeholder="Confirm Password"
+                        name="phone" [(ngModel)]="passwordDetails.password_confirmation">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="form-actions top">
+                    <button type="submit" class="btn btn-sm btn-danger mr-1" (click)="handlePasswordChange()">
+                      <i class="la la-check-square-o"></i> Change Password
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+          </ng-template>
+
+        </form>
+      </div>
+      <div class="card-content">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+  <div *ngIf="!loginRegisterUrl; else loginRegisterPage">
+    <!-- BEGIN: Header-->
+    <app-header-nav></app-header-nav>
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Sidebar-->
+    <app-sidebar></app-sidebar>
+    <!-- END: Sidebar-->
+
+
+    <!-- BEGIN Body Content -->
+    <div style="padding-top:5rem;">
+      <div class="app-content content" style="margin-bottom: 400px;">
+        <div class="content-wrapper">
+          <div class="content-header row mb-1">
+          </div>
+          <div class="content-body">
+            <router-outlet (activate)="onActivate($event)"></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END Body Content -->
+
+
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light navbar-border navbar-shadow">
+      <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span
+          class="float-md-left d-block d-md-inline-block">Copyright &copy; 2020 <a class="text-bold-800 grey darken-2"
+            href="#">KniteIndustries</a></span></p>
+    </footer>
+    <!-- END: Footer-->
+  </div>
+
+
+  <ng-template #loginRegisterPage>
+    <router-outlet></router-outlet>
+  </ng-template>

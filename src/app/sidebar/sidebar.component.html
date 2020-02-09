@@ -1,0 +1,87 @@
+    <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
+      <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+          <li class="active">
+            <a routerLink="/adminDashboard"><i class="la la-home"></i><span class="menu-title" data-i18n="">Admin
+                Dashboard</span>
+            </a>
+          </li>
+          <li class=" navigation-header"><span data-i18n="nav.category.professional">General</span><i
+              class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right"
+              data-original-title="Professional"></i>
+          </li>
+          <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/shopsInsight')}">
+            <a routerLink="/shopsInsight/pages/1">
+              <i class="la la-opencart"></i>
+              <span class="menu-title" data-i18n="">
+                Shop(s) Insights
+              </span>
+            </a>
+          </li>
+          <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/product')}">
+            <a routerLink="/product-category-dashboard">
+              <i class="la la-list"></i>
+              <span class="menu-title" data-i18n="">
+                Products & Categories
+              </span>
+            </a>
+          </li>
+
+
+          <li class=" nav-item"><a routerLink="/ordersInsight/pages/1"><i class="la la-shopping-cart"></i><span
+                class="menu-title" data-i18n="">Orders</span></a>
+          </li>
+
+          <li class=" nav-item"><a (click)="handleProductNav()"><i class="la la-upload"></i><span class="menu-title"
+                data-i18n="">Bulk Upload Products
+              </span></a>
+          </li>
+
+          <ng-container *ngIf="isAdminUser">
+            <li class=" navigation-header"><span data-i18n="nav.category.apps">Users Insights</span><i
+                class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Apps"></i>
+            </li>
+            <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/adminUserInsight/add')}">
+              <a routerLink="/adminUserInsight/add"><i class="la la-user-plus"></i><span class="menu-title"
+                  data-i18n="">Add
+                  User</span></a>
+            </li>
+            <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/adminUserInsight/pages')}">
+              <a routerLink="/adminUserInsight/pages/1"><i class="la la-users"></i><span class="menu-title"
+                  data-i18n="">View Users
+                </span></a>
+            </li>
+          </ng-container>
+
+          <li class=" navigation-header"><span data-i18n="nav.category.ui">Admin Controls</span><i
+              class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right"
+              data-original-title="User Interface"></i>
+          </li>
+
+          <ng-container *ngIf="isAdminUser">
+
+
+            <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/settings')}">
+              <a routerLink="/settings/dashboard"><i class="ft-settings icon-left"></i>
+                <span class="menu-title" data-i18n="">Settings
+                </span>
+              </a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="false">
+            <li class=" nav-item"><a><i class="la la-bell-o"></i><span class="menu-title"
+                  data-i18n="nav.components.main">Notifications</span></a>
+            </li>
+          </ng-container>
+
+          <li class=" nav-item"><a routerLink="/admin-user-profile"><i class="la la-user-secret"></i><span
+                class="menu-title" data-i18n="nav.pages.main">Profile</span></a>
+          </li>
+          <li class=" nav-item"><a><i class="la la-power-off"></i><span class="menu-title"
+                (click)="handlelogout()">logout</span></a>
+          </li>
+
+        </ul>
+      </div>
+    </div>

@@ -1,0 +1,16 @@
+.size-filter ul li span {
+  background: #F0F2F8;
+  border-radius: 3px;
+  display: block;
+  font-weight: 700;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  width: 34px;
+  color: #00BCD4;
+}
+
+.size-filter ul li.active span {
+  background: #00BCD4;
+  color: #FFFFFF;
+}
