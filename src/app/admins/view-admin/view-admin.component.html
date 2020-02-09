@@ -66,39 +66,6 @@
                  </div>
 
                  <div class="row">
-                   <div class="col-lg-6 col-md-6">
-                     <div class="form-group">
-                       <label for="gender">Shops Assigned To:</label>
-                       <textarea class="form-control" placeholder="shops" name="shops" cols="10" rows="5"
-                         disabled>{{userDetails.shops_assigned_to | stringifyarray | uppercase}}</textarea>
-                     </div>
-                   </div>
-
-                   <div class="col-md-6">
-
-                     <div class="form-group">
-                       <label for="description">Select to Unassign Shop:</label>
-                       <select class="form-control" name="role" required [(ngModel)]="selectedUnassignedShop">
-                         <option [value]="shop.uuid" *ngFor="let shop of userDetails.shops_assigned_to">
-                           {{shop.name}}</option>
-                       </select>
-                     </div>
-
-                     <div class="row">
-                       <div class=" col-md-4 offset-md-8">
-                         <div class="text-center">
-                           <button type="button" (click)="handleUnAssign()" class="btn btn-sm btn-danger">Unassign
-                             Shop?</button>
-
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-
-
-                 </div>
-
-                 <div class="row">
                    <div class=" col-md-3 offset-md-9 ">
                      <div class="form-actions text-center">
                        <button type="button" (click)="handleAdminUpdate()"
@@ -110,31 +77,6 @@
                  </div>
 
 
-                 <h4 class="form-section"><i class="la la-eye"></i> Assign User
-                   <span class="text-primary"><small>
-                       * User can be
-                       assigned to muiltple shops
-                     </small></span></h4>
-
-                 <div class="row">
-                   <div class="col-md-6">
-
-                     <div class="form-group">
-                       <label for="description">Assign Shop:</label>
-                       <select class="form-control" name="role" required [(ngModel)]="selectedAssginedShop">
-                         <option value="">Select Shop</option>
-                         <option [value]="shop.uuid" *ngFor="let shop of shopList">{{shop.name}}</option>
-
-                       </select>
-
-                     </div>
-                   </div>
-                 </div>
-
-                 <div class="card-footer ml-auto">
-                   <button type="button" (click)="handleAssignment()"
-                     class="btn btn-outline-success mr-1">Assign</button>
-                 </div>
 
                </div>
 

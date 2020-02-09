@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewDefaultShopComponent } from './view-default-shop.component';
+import { ViewAdminComponent } from './view-admin.component';
 
-describe('ViewDefaultShopComponent', () => {
-  let component: ViewDefaultShopComponent;
-  let fixture: ComponentFixture<ViewDefaultShopComponent>;
+describe('ViewAdminComponent', () => {
+  let component: ViewAdminComponent;
+  let fixture: ComponentFixture<ViewAdminComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewDefaultShopComponent ]
+      declarations: [ ViewAdminComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewDefaultShopComponent);
+    fixture = TestBed.createComponent(ViewAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

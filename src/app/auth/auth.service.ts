@@ -20,18 +20,18 @@ export class AuthService {
   ) {}
 
   private validateToken() {
-    const apiUrl = this.endpoints.validateTokenUrl.tokenVerify;
-    return new Promise(resolve => {
-      this.endpoints.fetch(apiUrl).subscribe(
-        res => {
-          resolve(true);
-        },
-        error => {
-          console.log("Error Validating");
-          resolve(false);
-        }
-      );
-    });
+    // const apiUrl = this.endpoints.validateTokenUrl.tokenVerify;
+    // return new Promise(resolve => {
+    //   this.endpoints.fetch(apiUrl).subscribe(
+    //     res => {
+    //       resolve(true);
+    //     },
+    //     error => {
+    //       console.log("Error Validating");
+    //       resolve(false);
+    //     }
+    //   );
+    // });
   }
 
   login() {

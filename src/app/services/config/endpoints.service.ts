@@ -10,7 +10,7 @@ export class EndpointsService {
   public httpStatus = "allCalls";
 
   public adminUsersUrl = {
-    createGetUpdateDeleteAdmin: "super",
+    createGetUpdateDeleteAdmin: "shop/admin",
     assignToShop: "admin/assign_to_shop",
     unassignToShop: "admin/unassign"
   };
@@ -20,16 +20,8 @@ export class EndpointsService {
     changePassword: "password/change"
   };
 
-  public defaultShopUrl = {
-    createGetUpdateDeleteDefaultShop: "shops/default"
-  };
-
   public adminCategoryUrl = {
     createGetUpdateDeleteAdminCategory: "category"
-  };
-
-  public shopUrl = {
-    createGetUpdateDeleteShop: "shops"
   };
 
   public productsUrl = {
@@ -50,10 +42,6 @@ export class EndpointsService {
   public registerLoginUrl = {
     loginShopAdmin: "shop/login",
     register: "staff/signup/"
-  };
-
-  public validateTokenUrl = {
-    tokenVerify: "token/validate"
   };
 
   constructor(private http: HttpClient) {}

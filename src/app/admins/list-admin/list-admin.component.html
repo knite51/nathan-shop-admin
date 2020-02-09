@@ -23,7 +23,8 @@
 
                      <div class="heading-elements">
 
-                       <a class="dropdown-item btn btn-warning round btn-sm" type="button" (click)="handleNavigation()">
+                       <a class="dropdown-item btn btn-success round btn-sm" style="color: #ffff;" type="button"
+                         (click)="handleNavigation()">
                          <i class="la la-plus"></i>
                          Add Admin User</a>
                      </div>
@@ -45,7 +46,7 @@
                                    <th>Index</th>
                                    <th>Full Name</th>
                                    <th>Email</th>
-                                   <th>Shop(s) Assigned To</th>
+
                                    <th>Role</th>
                                    <th>Action</th>
                                  </tr>
@@ -59,15 +60,7 @@
                                      {{data.full_name}}</td>
                                    <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">{{data.email}}
                                    </td>
-                                   <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;"
-                                     *ngIf="data.shops_assigned_to.length === 0; else shops">Not Assigned</td>
-                                   <ng-template #shops>
-                                     <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
-                                       <span style="display: block;"
-                                         *ngFor="let shop of data.shops_assigned_to; let i = index">{{i + 1}}.
-                                         {{shop.name}}</span>
-                                     </td>
-                                   </ng-template>
+
                                    <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">{{data.role}}
                                    </td>
                                    <td><a (click)="handleNavigationView(data.uuid)"><i

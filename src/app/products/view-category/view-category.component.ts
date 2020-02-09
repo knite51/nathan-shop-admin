@@ -130,7 +130,7 @@ export class ViewCategoryComponent implements OnInit {
     if (this.route.snapshot.queryParams.redirectTo) {
       this.router.navigate([this.route.snapshot.queryParams.redirectTo]);
     } else {
-      this.router.navigate(["/productInsight/categories/pages/1"]);
+      this.router.navigate(["/categoryInsight/pages/1"]);
     }
   }
 }

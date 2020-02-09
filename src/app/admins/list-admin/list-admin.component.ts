@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
 import { GeneralService } from "src/app/services/general.service";
+import { LocalStorageService } from "src/app/utils/localStorage.service";
 
 @Component({
   selector: "app-list-admin",
@@ -19,23 +20,29 @@ export class ListAdminComponent implements OnInit {
   };
   pageNumber = 1;
   dataSource = [];
+  loggedInShop: any = {};
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private endpoint: EndpointsService,
-    private genServ: GeneralService
+    private genServ: GeneralService,
+    localStorage: LocalStorageService
   ) {
+    this.loggedInShop = JSON.parse(
+      localStorage.getFromLocalStorage("ShopDetails")
+    );
+    const shopId = this.loggedInShop.uuid;
     this.route.params.subscribe((par: Params) => {
       const { pageNumber } = par;
       Number(pageNumber) === 1
-        ? this.getAdminUsers()
-        : this.handleReloadOnPagination(pageNumber);
+        ? this.getAdminUsers(shopId)
+        : this.handleReloadOnPagination(pageNumber, shopId);
     });
   }
 
-  private getAdminUsers() {
-    const apiUrl = `${this.endpoint.adminUsersUrl.createGetUpdateDeleteAdmin}/list`;
+  private getAdminUsers(shopId) {
+    const apiUrl = `${this.endpoint.adminUsersUrl.createGetUpdateDeleteAdmin}/list/${shopId}`;
     this.endpoint.fetch(apiUrl).subscribe(res => {
       console.log(res, "admins");
       this.setDataSource(res);
@@ -77,7 +84,7 @@ export class ListAdminComponent implements OnInit {
         res !== null ? this.setDataSource(res) : (this.dataSource = []);
       });
     } else {
-      this.getAdminUsers();
+      this.getAdminUsers(this.loggedInShop.uuid);
       this.paginationUrl = {
         next: "",
         prev: "",
@@ -87,11 +94,11 @@ export class ListAdminComponent implements OnInit {
     }
   }
 
-  handleReloadOnPagination(pageNumber) {
+  handleReloadOnPagination(pageNumber, shopId) {
     console.log(pageNumber, "hlo");
     this.endpoint
       .fetchPaginationPage(
-        `https://api-dev.natanshield.com/api/v1/super/list?perPage=10&page=${pageNumber}`
+        `https://api-dev.natanshield.com/api/v1/shop/admin/list/${shopId}?perPage=10&page=${pageNumber}`
       )
       .subscribe(res => {
         console.log(res, "pagenate reload pageNumber");
@@ -119,7 +126,7 @@ export class ListAdminComponent implements OnInit {
     this.route.snapshot.url.forEach((res: any) => {
       redirect += res.path + "/";
     });
-    this.router.navigate([`/adminUserInsight/${id}/view-assign`], {
+    this.router.navigate([`/adminUserInsight/view-admin`, id], {
       queryParams: { redirectTo: redirect }
     });
   }
@@ -158,7 +165,7 @@ export class ListAdminComponent implements OnInit {
             console.log(res);
             const { status_code } = res;
             if (status_code === 200) {
-              this.getAdminUsers();
+              this.getAdminUsers(this.loggedInShop.uuid);
               this.genServ.sweetAlertSucess(
                 "Admin User Deleted",
                 "Deletion Successful"

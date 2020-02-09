@@ -30,28 +30,21 @@ import { ViewProductComponent } from "./products/view-product/view-product.compo
 import { ListProductComponent } from "./products/list-product/list-product.component";
 import { ShortenPipe } from "./shared/pipes/shorten.pipe";
 import { FilterPipe } from "./shared/pipes/filter.pipe";
-// import { ListShopComponent } from "./shops/list-shop/list-shop.component";
-// import { AddShopComponent } from "./shops/add-shop/add-shop.component";
-// import { ViewShopComponent } from "./shops/view-shop/view-shop.component";
+
 import { LoginComponent } from "./auth/login/login.component";
 import { AuthcrudInterceptorService } from "./auth/auth-crud-interceptor.service";
-import { AddDefaultShopComponent } from "./settings/add-default-shop/add-default-shop.component";
-import { ListDefaultShopComponent } from "./settings/list-default-shop/list-default-shop.component";
-import { ViewDefaultShopComponent } from "./settings/view-default-shop/view-default-shop.component";
 import { AddAdminComponent } from "./admins/add-admin/add-admin.component";
 import { ListAdminComponent } from "./admins/list-admin/list-admin.component";
-import { AssignViewAdminComponent } from "./admins/assign-view-admin/assign-view-admin.component";
 import { StringifyArray } from "./shared/pipes/stringifyArray.pipe";
 import { ProductCategoryDashboardComponent } from "./products/product-category-dashboard/product-category-dashboard.component";
 import { AddCategoryComponent } from "./products/add-category/add-category.component";
 import { ListCategoryComponent } from "./products/list-category/list-category.component";
 import { ViewCategoryComponent } from "./products/view-category/view-category.component";
-import { ListOrdersComponent } from "./orders/list-orders/list-orders.component";
-import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component";
 import { ErrorInterceptor } from "./auth/auth-err-interceptor.service";
 import { SettingsDasboardComponent } from "./settings/settings-dasboard/settings-dasboard.component";
 import { SetPaymentComponent } from "./settings/payments/set-payment/set-payment.component";
 import { UserProfileComponent } from "./admins/user-profile/user-profile.component";
+import { ViewAdminComponent } from './admins/view-admin/view-admin.component';
 
 @NgModule({
   declarations: [
@@ -65,25 +58,17 @@ import { UserProfileComponent } from "./admins/user-profile/user-profile.compone
     ShortenPipe,
     FilterPipe,
     StringifyArray,
-    // ListShopComponent,
-    // AddShopComponent,
-    // ViewShopComponent,
     LoginComponent,
-    AddDefaultShopComponent,
-    ListDefaultShopComponent,
-    ViewDefaultShopComponent,
     AddAdminComponent,
     ListAdminComponent,
-    AssignViewAdminComponent,
     ProductCategoryDashboardComponent,
     AddCategoryComponent,
     ListCategoryComponent,
     ViewCategoryComponent,
-    ListOrdersComponent,
-    ViewOrdersComponent,
     SettingsDasboardComponent,
     SetPaymentComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ViewAdminComponent
   ],
   imports: [
     AppRoutingModule,

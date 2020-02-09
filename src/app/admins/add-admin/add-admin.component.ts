@@ -51,11 +51,7 @@ export class AddAdminComponent implements OnInit {
             (res: any) => {
               console.log(res, "response");
               this.genServ
-                .sweetAlertSucessNavigate(
-                  `Admin User Created`,
-                  `User has been added`,
-                  "Assign Shop Page"
-                )
+                .sweetAlertSucess(`Admin User Created`, `User has been added`)
                 .then(res2 => {
                   // clear form fields
                   this.adminUser = {
@@ -65,11 +61,6 @@ export class AddAdminComponent implements OnInit {
                     role: "",
                     password: ""
                   };
-                  if (res2.value) {
-                    this.router.navigate([
-                      `/adminUserInsight/${res.user.uuid}/view-assign`
-                    ]);
-                  }
                 });
             },
             error => {

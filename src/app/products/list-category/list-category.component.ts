@@ -128,7 +128,7 @@ export class ListCategoryComponent implements OnInit {
     const pageNumber = url.includes("page=")
       ? url.substring(pageNumberIndex)
       : 1;
-    this.router.navigate(["/productInsight/categories/pages/", pageNumber]);
+    this.router.navigate(["/categoryInsight/pages/", pageNumber]);
   }
 
   hidShowPlaceHolder(value, type) {
@@ -146,7 +146,7 @@ export class ListCategoryComponent implements OnInit {
     this.route.snapshot.url.forEach((res: any) => {
       redirect += res.path + "/";
     });
-    this.router.navigate(["/productInsight/category/add"], {
+    this.router.navigate(["/categoryInsight/add"], {
       queryParams: { redirectTo: redirect }
     });
   }
@@ -156,7 +156,7 @@ export class ListCategoryComponent implements OnInit {
     this.route.snapshot.url.forEach((res: any) => {
       redirect += res.path + "/";
     });
-    this.router.navigate([`productInsight/category/view`, id], {
+    this.router.navigate([`categoryInsight/view`, id], {
       queryParams: { redirectTo: redirect }
     });
   }

@@ -19,18 +19,19 @@
             </a>
           </li> -->
           <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/product')}">
-            <a routerLink="/product-category-dashboard">
+            <a routerLink="/productInsight/pages/1">
               <i class="la la-list"></i>
               <span class="menu-title" data-i18n="">
-                Products & Categories
+                Products
               </span>
             </a>
           </li>
 
 
-          <!-- <li class=" nav-item"><a routerLink="/ordersInsight/pages/1"><i class="la la-shopping-cart"></i><span
-                class="menu-title" data-i18n="">Orders</span></a>
-          </li> -->
+          <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/category')}"><a
+              routerLink="/categoryInsight/pages/1"><i class="la la-opencart"></i><span class="menu-title"
+                data-i18n="">Categories</span></a>
+          </li>
 
           <li class=" nav-item"><a (click)="handleProductNav()"><i class="la la-upload"></i><span class="menu-title"
                 data-i18n="">Bulk Upload Products
