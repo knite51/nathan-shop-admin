@@ -79,7 +79,9 @@ export class ListAdminComponent implements OnInit {
     if (filterValue) {
       const apiUrl = `${
         this.endpoint.adminUsersUrl.createGetUpdateDeleteAdmin
-      }/search?q=${filterValue.toLowerCase()}&perPage=10`;
+      }/search/${
+        this.loggedInShop.uuid
+      }?q=${filterValue.toLowerCase()}&perPage=10`;
       this.endpoint.fetch(apiUrl).subscribe(res => {
         res !== null ? this.setDataSource(res) : (this.dataSource = []);
       });

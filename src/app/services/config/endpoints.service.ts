@@ -16,8 +16,8 @@ export class EndpointsService {
   };
 
   public userProfileUrl = {
-    getUpdate: "profile",
-    changePassword: "password/change"
+    getUpdate: "shop/profile",
+    changePassword: "shop/password/change"
   };
 
   public adminCategoryUrl = {
