@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../auth/auth.service";
 import { LocalStorageService } from "../utils/localStorage.service";
+import { GeneralService } from "../services/general.service";
 
 @Component({
   selector: "app-header-nav",
@@ -12,7 +13,8 @@ export class HeaderNavComponent implements OnInit {
   shopDetails: any = {};
   constructor(
     private localstorage: LocalStorageService,
-    private authServ: AuthService
+    private authServ: AuthService,
+    public genServ: GeneralService
   ) {}
 
   ngOnInit() {

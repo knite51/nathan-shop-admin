@@ -4,30 +4,31 @@
     <div class="card pull-up">
       <div class="card-content">
         <div class="card-body">
-          <div class="media d-flex">
+          <div class="media d-flex" (click)="handleDashboardHeadNav('Users')">
             <div class="align-self-center">
-              <i class="la la-user-md font-large-2 success"></i>
+              <i class="la la-users font-large-2 success"></i>
             </div>
             <div class="media-body text-right">
               <h5 class="text-muted text-bold-500">Users</h5>
-              <h3 class="text-bold-600">122</h3>
+              <h3 class="text-bold-600">{{reportArray?.total_users}}</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-xl-3 col-lg-6 col-md-6 col-12">
     <div class="card pull-up">
       <div class="card-content">
         <div class="card-body">
-          <div class="media d-flex">
+          <div class="media d-flex" (click)="handleDashboardHeadNav('Active-Shops')">
             <div class="align-self-center">
-              <i class="la la-stethoscope font-large-2 warning"></i>
+              <i class="la la-user-md font-large-2 warning"></i>
             </div>
             <div class="media-body text-right">
               <h5 class="text-muted text-bold-500">Active Shops</h5>
-              <h3 class="text-bold-600">34</h3>
+              <h3 class="text-bold-600">{{reportArray?.active_shops}}</h3>
             </div>
           </div>
         </div>
@@ -38,13 +39,13 @@
     <div class="card pull-up">
       <div class="card-content">
         <div class="card-body">
-          <div class="media d-flex">
+          <div class="media d-flex" (click)="handleDashboardHeadNav('Completed-Orders')">
             <div class="align-self-center">
-              <i class="la la-calendar-check-o font-large-2 info"></i>
+              <i class="la la-cart-plus font-large-2 info"></i>
             </div>
             <div class="media-body text-right">
               <h5 class="text-muted text-bold-500">Completed Orders</h5>
-              <h3 class="text-bold-600">3.5K</h3>
+              <h3 class="text-bold-600">{{reportArray?.completed_orders}}</h3>
             </div>
           </div>
         </div>
@@ -55,13 +56,13 @@
     <div class="card pull-up">
       <div class="card-content">
         <div class="card-body">
-          <div class="media d-flex">
+          <div class="media d-flex" (click)="handleDashboardHeadNav('Pending-Orders')">
             <div class="align-self-center">
-              <i class="la la-bed font-large-2 danger"></i>
+              <i class="la la-caret-square-o-down font-large-2 danger"></i>
             </div>
             <div class="media-body text-right">
               <h5 class="text-muted text-bold-500">Pending Orders</h5>
-              <h3 class="text-bold-600">179</h3>
+              <h3 class="text-bold-600">{{reportArray?.pending_orders}}</h3>
             </div>
           </div>
         </div>
@@ -79,12 +80,12 @@
         <div class=" row">
           <div class=" col-sm-6 text-left">
             <!-- <h5 class=" card-category">Orders</h5> -->
-            <h2 class=" card-title">Total Orders</h2>
+            <h2 class=" card-title">Total Orders Count - {{chartView | titlecase}}</h2>
           </div>
           <div class=" col-sm-6">
             <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
-              <label class=" btn btn-sm btn-success btn-simple"
-                (click)="data=datasets[0];updateOptions();clicked=true;clicked1=false;clicked2=false;clicked3=false"
+              <label class=" btn btn-sm btn-warning btn-simple"
+                (click)="updateOptions('daily');clicked=true;clicked1=false;clicked2=false;clicked3=false"
                 [ngClass]="{'active':clicked===true}">
                 <input checked="checked" name="options" type="radio" />
 
@@ -95,8 +96,8 @@
                   <i class=" tim-icons icon-single-02"> </i>
                 </span>
               </label>
-              <label class=" btn btn-sm btn-success btn-simple"
-                (click)="data=datasets[1];updateOptions();clicked=false;clicked1=true;clicked2=false;clicked3=false"
+              <label class=" btn btn-sm btn-warning btn-simple"
+                (click)="updateOptions('weekly');clicked=false;clicked1=true;clicked2=false;clicked3=false"
                 [ngClass]="{'active':clicked1===true}">
                 <input class=" d-none d-sm-none" name="options" type="radio" />
 
@@ -108,8 +109,8 @@
                 </span>
               </label>
 
-              <label class=" btn btn-sm btn-success btn-simple"
-                (click)="data=datasets[2];updateOptions();clicked=false;clicked1=false;clicked2=true;clicked3=false"
+              <label class=" btn btn-sm btn-warning btn-simple"
+                (click)="updateOptions('monthly');clicked=false;clicked1=false;clicked2=true;clicked3=false"
                 [ngClass]="{'active':clicked2===true}">
                 <input class=" d-none" name="options" type="radio" />
 
@@ -121,8 +122,8 @@
                 </span>
               </label>
 
-              <label class=" btn btn-sm btn-success btn-simple"
-                (click)="data=datasets[3];updateOptions();clicked=false;clicked1=false;clicked2=false;clicked3=true"
+              <label class=" btn btn-sm btn-warning btn-simple"
+                (click)="updateOptions('yearly');clicked=false;clicked1=false;clicked2=false;clicked3=true"
                 [ngClass]="{'active':clicked3===true}">
                 <input class=" d-none" name="options" type="radio" />
 
@@ -142,6 +143,197 @@
           <canvas id="canvas22"> </canvas>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class=" card card-chart">
+      <div class=" card-header">
+        <h5 class=" card-category">Daily Sales</h5>
+        <h3 class=" card-title">
+          <i class=" tim-icons icon-delivery-fast text-info"> </i>
+        </h3>
+      </div>
+      <div class=" card-body">
+        <div class=" chart-area"><canvas id="CountryChart"> </canvas></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Order List </h2>
+        <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li>
+              <a class="btn btn-sm box-shadow-2 round btn-min-width pull-right" style="color:white!important;"
+                [ngClass]="{'btn-danger': filterStatus === 'Activate', 'btn-success': filterStatus === 'Deactivate'}"
+                (click)="handleDateFilterActivation()">{{filterStatus}} Date Filter
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- By Shops -->
+
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field style="border-bottom:1px solid; width: 50% !important; margin: 4em 0 0 0;"
+              *ngIf="filterStatus === 'Activate'; else dateFilter;">
+              <input matInput (keyup)="applyFilter($event.target.value)"
+                (focus)="hidShowPlaceHolder($event.target.value, 'onFocus')"
+                (blur)="hidShowPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
+            </mat-form-field>
+            <ng-template #dateFilter>
+              <div class="ml-2" style="margin: 4em 0 0 0;">
+                <span>
+                  <label for="from" class="mr-1"> From: </label>
+                  <mat-form-field style="border-bottom:1px solid; width: 30% !important;">
+                    <input type="date" #dateFrom matInput (change)="handleDateFilter(dateFrom.value, 'from')">
+                  </mat-form-field>
+                </span>
+
+                <span class="ml-1">
+                  <label for="to" class="mr-1"> To: </label>
+                  <mat-form-field style=" border-bottom:1px solid; width: 30% !important;">
+                    <input type="date" #dateTo matInput (change)="handleDateFilter(dateTo.value, 'to')">
+                  </mat-form-field>
+                </span>
+              </div>
+
+
+
+            </ng-template>
+          </div>
+
+          <div class="col-md-6">
+
+          </div>
+
+
+        </div>
+
+
+        <div class="heading-elements">
+
+        </div>
+
+
+      </div>
+
+      <div class="card-body collapse show">
+        <div class="content-detached content-right">
+
+          <div class="product-shop">
+
+            <div class="row match-height">
+              <div class="table-responsive">
+
+                <table class="table table-striped table-bordered Products-list"
+                  *ngIf="dataSourceOrder.length !== 0; else noItems">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Customer</th>
+                      <th>Shop</th>
+                      <th>Ref No</th>
+                      <th>Amount</th>
+                      <th>Paid?</th>
+                      <th>Delivery</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of dataSourceOrder; let i = index">
+                      <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
+                        {{i + paginationUrl.viewCountStart}}
+                      </td>
+                      <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
+                        {{data.user.full_name}}</td>
+                      <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
+                        {{data.shop.name}}</td>
+                      <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
+                        {{data.reference}}</td>
+                      <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
+                        {{data.grand_total | currency : 'N '}}
+                      </td>
+                      <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;"
+                        *ngIf="data.payment_status; else notPaid">
+                        Paid
+                      </td>
+                      <ng-template #notPaid>
+                        <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">Not Paid
+                        </td>
+                      </ng-template>
+                      <td (click)="handleNavigationView(data.uuid)" style="cursor: pointer;">
+                        {{data.delivery_time | date: 'longDate'}}</td>
+
+                      <td><a (click)="handleNavigationView(data.uuid)" style="color: #00BCD4;">view</a>
+                      </td>
+                    </tr>
+
+                  </tbody>
+
+
+                </table>
+
+                <ng-template #noItems>
+                  <mat-card class="text-center">No Items Available <b>
+
+                    </b>
+                  </mat-card>
+                </ng-template>
+
+                <div class="mat-paginator-outer-container">
+                  <div class="mat-paginator-container">
+                    <div class="mat-paginator-page-size ng-star-inserted">
+                      <div class="mat-paginator-page-size-label">Items per page:</div>
+                      <div class="ng-star-inserted">10</div>
+                    </div>
+                    <div class="mat-paginator-range-actions">
+                      <div class="mat-paginator-range-label">{{paginationUrl.viewCountStart}} -
+                        {{paginationUrl.viewCountEnd}}
+                        of
+                        {{totalItemCount}}
+                      </div>
+
+                      <button class="mat-paginator-navigation-previous mat-icon-button" mat-icon-button="" type="button"
+                        [disabled]="!paginationUrl?.prev" (click)="handlePagination('previous')">
+                        <span class="mat-button-wrapper">
+                          <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+                          </svg>
+                        </span>
+                        <div class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                        </div>
+                        <div class="mat-button-focus-overlay"></div>
+                      </button>
+
+                      <button class="mat-paginator-navigation-next mat-icon-button" mat-icon-button="" type="button"
+                        [disabled]="!paginationUrl?.next" (click)="handlePagination('next')">
+                        <span class="mat-button-wrapper">
+                          <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                          </svg>
+                        </span>
+                        <div class="mat-button-ripple mat-ripple mat-button-ripple-round"></div>
+                        <div class="mat-button-focus-overlay"></div>
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </div>

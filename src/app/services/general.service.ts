@@ -11,6 +11,7 @@ export class GeneralService {
   reloadService = new BehaviorSubject<boolean>(true);
   httpStatus = new BehaviorSubject<string>("firstload");
   expiredTokenUrl = new BehaviorSubject<any>("");
+  permissionRole = new BehaviorSubject<boolean>(true);
 
   constructor(private router: Router, private http: HttpClient) {}
 

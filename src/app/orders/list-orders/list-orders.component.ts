@@ -2,17 +2,21 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
 import { GeneralService } from "src/app/services/general.service";
-import { BehaviorSubject } from "rxjs";
 import { LocalStorageService } from "src/app/utils/localStorage.service";
 
 @Component({
-  selector: "app-list-category",
-  templateUrl: "./list-category.component.html",
-  styleUrls: ["./list-category.component.css"]
+  selector: "app-list-orders",
+  templateUrl: "./list-orders.component.html",
+  styleUrls: ["./list-orders.component.css"]
 })
-export class ListCategoryComponent implements OnInit {
+export class ListOrdersComponent implements OnInit {
   myplaceHolder = "Filter";
+  filterStatus = "Activate";
+  filterColumn = "Date";
+  filterSearch;
+  filterValue = "";
   totalItemCount = 0;
+  dateFilter = { from: "", to: "" };
   paginationUrl = {
     next: "",
     prev: "",
@@ -20,16 +24,14 @@ export class ListCategoryComponent implements OnInit {
     viewCountEnd: 10
   };
   pageNumber = 1;
-  dateFilter = { from: "", to: "" };
-
-  dataSourceCategories = [];
+  dataSource = [];
   loggedInShop: any = {};
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private endpoint: EndpointsService,
-    public genServ: GeneralService,
+    private genServ: GeneralService,
     localStorage: LocalStorageService
   ) {
     this.loggedInShop = JSON.parse(
@@ -38,19 +40,16 @@ export class ListCategoryComponent implements OnInit {
     const shopId = this.loggedInShop.uuid;
     this.route.params.subscribe((par: Params) => {
       const { pageNumber } = par;
-
       Number(pageNumber) === 1
-        ? this.getCategories(shopId)
+        ? this.getOrders(shopId)
         : this.handleReloadOnPagination(pageNumber, shopId);
     });
   }
 
-  ngOnInit() {}
-
-  private getCategories(id) {
-    const apiUrl = `${this.endpoint.categoriesUrl.getUpdateCategoryByShops}/list/${id}`;
+  private getOrders(id) {
+    const apiUrl = `${this.endpoint.ordersUrl.getViewOrders}/list/${id}`;
     this.endpoint.fetch(apiUrl).subscribe(res => {
-      console.log(res, "categories");
+      // console.log(res, "orders");
       this.setDataSource(res);
     });
   }
@@ -76,22 +75,39 @@ export class ListCategoryComponent implements OnInit {
     total > this.paginationUrl.viewCountEnd
       ? this.paginationUrl
       : (this.paginationUrl.viewCountEnd = total);
-
-    this.dataSourceCategories = data;
+    this.dataSource = data;
   }
 
-  applyFilter(filterValue) {
+  ngOnInit() {}
+
+  handleDateFilter(value, type) {
+    if (type === "from") {
+      this.dateFilter.from = value;
+    } else {
+      this.dateFilter.to = value;
+    }
+    // console.log(this.dateFilter, "lol");
+    if (this.dateFilter.from && this.dateFilter.to) {
+      const apiUrl = `${this.endpoint.ordersUrl.searchOrders}/search?q=${this.filterValue}&perPage=10&${this.dateFilter.from}/${this.dateFilter.to}`;
+      this.endpoint.fetch(apiUrl).subscribe(res => {
+        // console.log(res, "datefilter");
+        this.setDataSource(res);
+      });
+    }
+  }
+
+  applyFilter(filterValue: string) {
     if (filterValue) {
+      this.filterValue = filterValue;
       const apiUrl = `${
-        this.endpoint.categoriesUrl.getUpdateCategoryByShops
-      }/search?q=${filterValue.toLowerCase()}`;
-      this.endpoint.fetch(apiUrl).subscribe((res: any) => {
-        res !== null
-          ? this.setDataSource(res)
-          : (this.dataSourceCategories = []);
+        this.endpoint.ordersUrl.searchOrders
+      }q=${filterValue.toLowerCase()}&perPage=10`;
+      this.endpoint.fetch(apiUrl).subscribe(res => {
+        // console.log(res, "filted res");
+        res !== null ? this.setDataSource(res) : (this.dataSource = []);
       });
     } else {
-      this.getCategories(this.loggedInShop.uuid);
+      this.getOrders(this.loggedInShop.uuid);
       this.paginationUrl = {
         next: "",
         prev: "",
@@ -102,11 +118,13 @@ export class ListCategoryComponent implements OnInit {
   }
 
   handleReloadOnPagination(pageNumber, shopId) {
+    // console.log(pageNumber, "hlo");
     this.endpoint
       .fetchPaginationPage(
-        `https://api-dev.natanshield.com/api/v1/category/list/${shopId}?perPage=10&page=${pageNumber}`
+        `https://api-dev.natanshield.com/api/v1/super/orders/list/${shopId}?perPage=10&page=${pageNumber}`
       )
       .subscribe(res => {
+        // console.log(res, "pagenate reload pageNumber");
         this.paginationUrl = {
           ...this.paginationUrl,
           viewCountStart: 10 * pageNumber + 1 - 10,
@@ -114,6 +132,41 @@ export class ListCategoryComponent implements OnInit {
         };
         this.setDataSource(res);
       });
+  }
+
+  handleNavigationView(id) {
+    let redirect = "";
+    this.route.snapshot.url.forEach((res: any) => {
+      redirect += res.path + "/";
+    });
+    this.router.navigate([`/ordersInsight/view`, id], {
+      queryParams: { redirectTo: redirect }
+    });
+  }
+
+  hidShowPlaceHolder(value, type) {
+    if (type === "onFocus" || value) {
+      this.myplaceHolder = "";
+      return;
+    } else if (type === "onBlur" && !value) {
+      this.myplaceHolder = "Filter";
+      return;
+    }
+  }
+
+  handleDateFilterActivation() {
+    if (this.filterStatus === "Activate") {
+      this.filterStatus = "Deactivate";
+    } else {
+      this.filterStatus = "Activate";
+      // this.getTransactions();
+      this.paginationUrl = {
+        next: "",
+        prev: "",
+        viewCountStart: 1,
+        viewCountEnd: 10
+      };
+    }
   }
 
   handlePagination(type) {
@@ -128,61 +181,6 @@ export class ListCategoryComponent implements OnInit {
     const pageNumber = url.includes("page=")
       ? url.substring(pageNumberIndex)
       : 1;
-    this.router.navigate(["/categoryInsight/pages/", pageNumber]);
-  }
-
-  hidShowPlaceHolder(value, type) {
-    if (type === "onFocus" || value) {
-      this.myplaceHolder = "";
-      return;
-    } else if (type === "onBlur" && !value) {
-      this.myplaceHolder = "Filter";
-      return;
-    }
-  }
-
-  handleAddNavigation() {
-    let redirect = "";
-    this.route.snapshot.url.forEach((res: any) => {
-      redirect += res.path + "/";
-    });
-    this.router.navigate(["/categoryInsight/add"], {
-      queryParams: { redirectTo: redirect }
-    });
-  }
-
-  handleNavigationView(id) {
-    let redirect = "";
-    this.route.snapshot.url.forEach((res: any) => {
-      redirect += res.path + "/";
-    });
-    this.router.navigate([`categoryInsight/view`, id], {
-      queryParams: { redirectTo: redirect }
-    });
-  }
-
-  handleShopDelete(id) {
-    this.genServ.sweetAlertDeletions("Category").then(res => {
-      if (res.value) {
-        const apiUrl = `${this.endpoint.categoriesUrl.deleteCategory}`;
-        this.endpoint.delete(apiUrl, id).subscribe(
-          (res: any) => {
-            console.log(res);
-            const { status_code } = res;
-            if (status_code === 200) {
-              this.getCategories(this.loggedInShop.uuid);
-              this.genServ.sweetAlertSucess(
-                "Category Deleted",
-                "Deletion Successful"
-              );
-            }
-          },
-          error => {
-            console.log(error, "error on delete");
-            this.genServ.sweetAlertError("Sorry, Delete Not Successful");
-          }
-        );
-      }
-    });
+    this.router.navigate(["/ordersInsight/pages/", pageNumber]);
   }
 }

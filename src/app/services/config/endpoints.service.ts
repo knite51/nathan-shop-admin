@@ -15,6 +15,10 @@ export class EndpointsService {
     unassignToShop: "admin/unassign"
   };
 
+  public dashboardUrl = {
+    report: "dashboard"
+  };
+
   public userProfileUrl = {
     getUpdate: "shop/profile",
     changePassword: "shop/password/change"
@@ -36,7 +40,13 @@ export class EndpointsService {
 
   public ordersUrl = {
     getViewOrders: "orders",
-    searchOrders: "orders/search?"
+    searchOrders: "orders/search?",
+    getPending: "orders/list?status=pending",
+    completed: "orders/list?status=completed"
+  };
+
+  public customersUrl = {
+    createGetUpdateDeleteCustomers: "customers"
   };
 
   public registerLoginUrl = {

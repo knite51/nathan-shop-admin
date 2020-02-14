@@ -39,14 +39,18 @@
                   <a class="dropdown-item" routerLink="/admin-user-profile">
                     <i class="ft-user"></i> Profile
                   </a>
-                  <a class="dropdown-item" routerLink="/adminUserInsight/add">
-                    <i class="ft-users"></i> Add New User
-                  </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" routerLink="/settings/dashboard">
-                    <i class="ft-settings"></i> Settings
-                  </a>
-                  <div class="dropdown-divider"></div>
+
+                  <ng-container *ngIf="genServ.permissionRole | async">
+                    <a class="dropdown-item" routerLink="/adminUserInsight/add">
+                      <i class="ft-users"></i> Add New User
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="/settings/dashboard">
+                      <i class="ft-settings"></i> Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                  </ng-container>
                   <a class="dropdown-item" (click)="handlelogout()">
                     <i class="ft-power"></i> Logout
                   </a>

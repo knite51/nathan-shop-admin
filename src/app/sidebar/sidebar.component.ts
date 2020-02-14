@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { AuthService } from "../auth/auth.service";
+import { GeneralService } from "../services/general.service";
 
 @Component({
   selector: "app-sidebar",
@@ -12,7 +13,11 @@ export class SidebarComponent implements OnInit {
   url = new Subject();
   isAdminUser = true;
 
-  constructor(private router: Router, private authServ: AuthService) {
+  constructor(
+    private router: Router,
+    private authServ: AuthService,
+    public genServ: GeneralService
+  ) {
     router.events.subscribe(val => {
       this.url.next(window.location.href);
     });

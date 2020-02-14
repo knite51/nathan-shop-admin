@@ -28,7 +28,7 @@ export class ListProductComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private endpoints: EndpointsService,
-    private genServ: GeneralService,
+    public genServ: GeneralService,
     localStorage: LocalStorageService
   ) {
     this.loggedInShop = JSON.parse(

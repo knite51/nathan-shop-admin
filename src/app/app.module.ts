@@ -41,10 +41,11 @@ import { AddCategoryComponent } from "./products/add-category/add-category.compo
 import { ListCategoryComponent } from "./products/list-category/list-category.component";
 import { ViewCategoryComponent } from "./products/view-category/view-category.component";
 import { ErrorInterceptor } from "./auth/auth-err-interceptor.service";
-import { SettingsDasboardComponent } from "./settings/settings-dasboard/settings-dasboard.component";
-import { SetPaymentComponent } from "./settings/payments/set-payment/set-payment.component";
 import { UserProfileComponent } from "./admins/user-profile/user-profile.component";
-import { ViewAdminComponent } from './admins/view-admin/view-admin.component';
+import { ViewAdminComponent } from "./admins/view-admin/view-admin.component";
+import { ResetPasswordComponent } from "./auth/reset-password/reset-password.component";
+import { ListOrdersComponent } from "./orders/list-orders/list-orders.component";
+import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component";
 
 @NgModule({
   declarations: [
@@ -65,10 +66,11 @@ import { ViewAdminComponent } from './admins/view-admin/view-admin.component';
     AddCategoryComponent,
     ListCategoryComponent,
     ViewCategoryComponent,
-    SettingsDasboardComponent,
-    SetPaymentComponent,
     UserProfileComponent,
-    ViewAdminComponent
+    ViewAdminComponent,
+    ResetPasswordComponent,
+    ListOrdersComponent,
+    ViewOrdersComponent
   ],
   imports: [
     AppRoutingModule,

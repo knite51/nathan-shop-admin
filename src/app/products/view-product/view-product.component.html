@@ -166,19 +166,19 @@
                      <div class="product-img d-flex align-items-center"
                        style="height: auto; min-height: auto; background: transparent; margin-top: 2em;">
 
-                       <span *ngIf="product.images.length > 0; else noImage">
-                         <div style="margin-left: 8px;" id="steady-spinner" *ngIf="!imageLoaded;"></div>
+                       <span *ngIf="product.images.length > 0; else noImage;">
+                         <div style="margin-left: 8px;" id="steady-spinner" *ngIf="!imageLoaded"></div>
 
 
                          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                            <ol class="carousel-indicators">
                              <li data-target="#carousel-example-generic" data-slide-to="{{i}"
-                               *ngFor="let image of product.images; let i = index" [ngClass]="{'active': i == '0'}">
+                               *ngFor="let image of product.images; let i = index;" [ngClass]="{'active': i == '0'}">
                              </li>
 
                            </ol>
                            <div class="carousel-inner" role="listbox">
-                             <div class="carousel-item" *ngFor="let image of product.images; let i = index" [ngClass]="{'active': i == '0'}">
+                             <div class="carousel-item" *ngFor="let image of product.images; let i = index;" [ngClass]="{'active': i == '0'}">
                                <img [src]="image.url" class="img-fluid mb-1 img-thumbnail"
                                  style="border-radius: 0px; max-width: 100%;" alt="{{i}} slide" (load)="onImageLoad()">
                          </div>
@@ -189,7 +189,7 @@
                      <div class="col-md-8">
                        <select name="image" class="form-control" [(ngModel)]="selectedDeleteImage">
                          <option value="">Select Image to Delete</option>
-                         <option [value]="image.uuid" *ngFor="let image of product.images; let i = index">
+                         <option [value]="image.uuid" *ngFor="let image of product.images; let i = index;">
                            Image {{i + 1}}
                          </option>
                        </select>

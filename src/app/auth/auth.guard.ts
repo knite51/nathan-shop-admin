@@ -11,6 +11,7 @@ import {
 } from "@angular/router";
 import { AuthService } from "./auth.service";
 import { GeneralService } from "../services/general.service";
+import { LocalStorageService } from "../utils/localStorage.service";
 
 @Injectable({
   providedIn: "root"
@@ -19,7 +20,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private genServ: GeneralService
+    private genServ: GeneralService,
+    private localStorage: LocalStorageService
   ) {}
 
   canActivate(
@@ -28,7 +30,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   ): boolean {
     const url: string = state.url;
     this.genServ.expiredTokenUrl.next(url);
-    return this.checkLogin(url);
+    return this.checkPermissionRole();
   }
 
   canActivateChild(
@@ -54,5 +56,17 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     // Navigate to the login page with extras
     this.router.navigate(["/login"]);
     return false;
+  }
+
+  checkPermissionRole() {
+    const adminRole = JSON.parse(
+      this.localStorage.getFromLocalStorage("ShopAdminUserInfo")
+    ).role;
+    if (adminRole === "shop_admin" || adminRole === "admin") {
+      return true;
+    } else {
+      this.genServ.sweetAlertAuthVerification("You are not authorized");
+      return false;
+    }
   }
 }

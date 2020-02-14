@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
+import { LocalStorageService } from "./utils/localStorage.service";
+import { GeneralService } from "./services/general.service";
 
 @Component({
   selector: "app-root",
@@ -9,12 +11,33 @@ import { Location } from "@angular/common";
 })
 export class AppComponent {
   title = "nathan-admin";
-  loginRegisterUrl = false;
+  loginRegisterResetPwdUrl = false;
 
-  constructor(location: Location, router: Router) {
+  constructor(
+    location: Location,
+    router: Router,
+    private localStorage: LocalStorageService,
+    private genServ: GeneralService
+  ) {
     router.events.subscribe(val => {
-      this.loginRegisterUrl = location.path().includes("/login") ? true : false;
+      this.loginRegisterResetPwdUrl =
+        location.path().includes("/login") ||
+        location.path().includes("/reset-password")
+          ? true
+          : false;
     });
+
+    // set roles view grant
+    if (this.localStorage.getFromLocalStorage("ShopAdminUserInfo") !== null) {
+      const adminRole = JSON.parse(
+        this.localStorage.getFromLocalStorage("ShopAdminUserInfo")
+      ).role;
+      adminRole === "shop_admin" || adminRole === "admin"
+        ? this.genServ.permissionRole.next(true)
+        : this.genServ.permissionRole.next(false);
+    } else {
+      this.genServ.permissionRole.next(false);
+    }
   }
 
   onActivate(event) {

@@ -12,10 +12,12 @@ import { ProductCategoryDashboardComponent } from "./products/product-category-d
 import { AddCategoryComponent } from "./products/add-category/add-category.component";
 import { ListCategoryComponent } from "./products/list-category/list-category.component";
 import { ViewCategoryComponent } from "./products/view-category/view-category.component";
-import { SettingsDasboardComponent } from "./settings/settings-dasboard/settings-dasboard.component";
-import { SetPaymentComponent } from "./settings/payments/set-payment/set-payment.component";
 import { UserProfileComponent } from "./admins/user-profile/user-profile.component";
 import { ViewAdminComponent } from "./admins/view-admin/view-admin.component";
+import { ResetPasswordComponent } from "./auth/reset-password/reset-password.component";
+import { ListOrdersComponent } from "./orders/list-orders/list-orders.component";
+import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 const routes: Routes = [
   {
@@ -28,20 +30,31 @@ const routes: Routes = [
   },
   {
     path: "adminUserInsight/pages/:pageNumber",
-    component: ListAdminComponent
+    component: ListAdminComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "adminUserInsight/add",
-    component: AddAdminComponent
+    component: AddAdminComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "adminUserInsight/view-admin/:adminId",
-    component: ViewAdminComponent
+    component: ViewAdminComponent,
+    canActivate: [AuthGuard]
   },
 
   {
     path: "adminDashboard",
     component: DashboardComponent
+  },
+  {
+    path: "ordersInsight/pages/:pageNumber",
+    component: ListOrdersComponent
+  },
+  {
+    path: "ordersInsight/view/:orderId",
+    component: ViewOrdersComponent
   },
   {
     path: "product-category-dashboard",
@@ -65,23 +78,21 @@ const routes: Routes = [
   },
   {
     path: "productInsight/add",
-    component: AddProductComponent
+    component: AddProductComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "categoryInsight/add",
-    component: AddCategoryComponent
-  },
-  {
-    path: "settings/dashboard",
-    component: SettingsDasboardComponent
-  },
-  {
-    path: "settings/set-payment-method",
-    component: SetPaymentComponent
+    component: AddCategoryComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "reset-password",
+    component: ResetPasswordComponent
   },
   { path: "", redirectTo: "adminDashboard", pathMatch: "full" },
   { path: "**", redirectTo: "adminDashboard", pathMatch: "full" }
