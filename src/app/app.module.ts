@@ -46,6 +46,7 @@ import { ViewAdminComponent } from "./admins/view-admin/view-admin.component";
 import { ResetPasswordComponent } from "./auth/reset-password/reset-password.component";
 import { ListOrdersComponent } from "./orders/list-orders/list-orders.component";
 import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component";
+import { DashboardTablesComponent } from "./dashboard/dashboard-tables/dashboard-tables.component";
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component"
     ViewAdminComponent,
     ResetPasswordComponent,
     ListOrdersComponent,
-    ViewOrdersComponent
+    ViewOrdersComponent,
+    DashboardTablesComponent
   ],
   imports: [
     AppRoutingModule,

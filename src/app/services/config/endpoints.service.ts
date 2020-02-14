@@ -16,7 +16,7 @@ export class EndpointsService {
   };
 
   public dashboardUrl = {
-    report: "dashboard"
+    report: "shop/dashboard"
   };
 
   public userProfileUrl = {
@@ -39,10 +39,10 @@ export class EndpointsService {
   };
 
   public ordersUrl = {
-    getViewOrders: "orders",
-    searchOrders: "orders/search?",
-    getPending: "orders/list?status=pending",
-    completed: "orders/list?status=completed"
+    getViewOrders: "shop/orders",
+    searchOrders: "shop/orders/search?",
+    getPending: "shop/orders/list?status=pending",
+    completed: "shop/orders/list?status=completed"
   };
 
   public customersUrl = {
@@ -51,7 +51,9 @@ export class EndpointsService {
 
   public registerLoginUrl = {
     loginShopAdmin: "shop/login",
-    register: "staff/signup/"
+    register: "staff/signup/",
+    resetPassword: "shop/password/reset/request",
+    changePassword: "shop/password/update"
   };
 
   constructor(private http: HttpClient) {}

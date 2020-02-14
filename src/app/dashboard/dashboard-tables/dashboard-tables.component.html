@@ -76,34 +76,40 @@
                       </tbody>
                     </table>
 
-                    <table class="table table-striped table-bordered Products-list" *ngSwitchCase="'Active-Shops'">
+
+                    <table class="table table-striped table-bordered Products-list" *ngSwitchCase="'Total-Products'">
                       <thead>
                         <tr>
                           <th>Index</th>
-                          <th>Shop Name</th>
-                          <th>Address</th>
-                          <th>City</th>
-                          <th>Country</th>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>SKU</th>
+                          <th>Category</th>
+                          <th>Weight</th>
+                          <th>Size</th>
+                          <th>Color</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let data of dataSource; let i = index;">
+                        <tr *ngFor="let product of dataSource;let i = index;">
                           <td>
-                            {{i + paginationUrl.viewCountStart}}
-                          </td>
+                            {{i + paginationUrl.viewCountStart}}</td>
                           <td>
-                            {{data.name}}
-                          </td>
+                            {{product.name}}</td>
                           <td>
-                            {{data.address}}</td>
+                            {{product.description}}</td>
                           <td>
-                            {{data.city}}
-                          </td>
+                            {{product.sku}}</td>
                           <td>
-                            {{data.country}}</td>
+                            {{product.category.name}}</td>
+                          <td>
+                            {{product.options[0].weight}}</td>
+                          <td>
+                            {{product.options[0].size | uppercase}}</td>
+                          <td>
+                            {{product.options[0].color}}</td>
 
                         </tr>
-
                       </tbody>
                     </table>
 

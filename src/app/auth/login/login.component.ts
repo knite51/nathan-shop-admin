@@ -16,6 +16,10 @@ export class LoginComponent implements OnInit {
     email: "",
     password: ""
   };
+  isResetPassword = false;
+  resetEmail = {
+    email: ""
+  };
   constructor(
     private endpoints: EndpointsService,
     private router: Router,
@@ -23,7 +27,12 @@ export class LoginComponent implements OnInit {
     private localStorage: LocalStorageService,
     private genServ: GeneralService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.route.queryParams.subscribe(res => {
+      const { view } = res;
+      view ? (this.isResetPassword = true) : (this.isResetPassword = false);
+    });
+  }
 
   ngOnInit() {}
 
@@ -39,6 +48,25 @@ export class LoginComponent implements OnInit {
     return !validationFields ? { ...this.credentials } : validationFields;
   }
 
+  handleForgotPass(type?) {
+    if (!type) {
+      this.router.navigate(["/login"], {
+        queryParams: { view: "resetPassword" }
+      });
+    } else {
+      this.router.navigate(["/login"]);
+    }
+  }
+
+  handlePassReset() {
+    const apiUrl = this.endpoints.registerLoginUrl.resetPassword;
+    this.endpoints.create(apiUrl, this.resetEmail).subscribe((res: any) => {
+      // console.log(res, "respinse");
+      this.genServ.sweetAlertHTMLNotify("Email Sent!. Kindly Check your email");
+      this.resetEmail = { email: "" };
+    });
+  }
+
   handleLogin() {
     const credentials = this.loginCredentials;
     if (typeof credentials === "string") {
@@ -51,14 +79,20 @@ export class LoginComponent implements OnInit {
           console.log(res, "respinse");
           const {
             access_token,
-            user: { email, first_name, last_name },
+            user: {
+              email,
+              first_name,
+              last_name,
+              role: { name: roleName }
+            },
             shop: { uuid, name, address, city }
           } = res;
           this.localStorage.saveToLocalStorage("token", access_token);
           this.localStorage.saveToLocalStorage("ShopAdminUserInfo", {
             email,
             first_name,
-            last_name
+            last_name,
+            role: roleName
           });
           this.localStorage.saveToLocalStorage("ShopDetails", {
             uuid,

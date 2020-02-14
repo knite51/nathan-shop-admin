@@ -115,6 +115,17 @@ export class GeneralService {
     return Swal.fire("Try again!", msg, "error");
   }
 
+  sweetAlertHTMLNotify(message) {
+    Swal.fire({
+      type: "success",
+      position: "top",
+      title: message,
+      toast: true,
+      showConfirmButton: false,
+      timer: 4000
+    });
+  }
+
   sweetAlertFieldValidation(fields) {
     return Swal.fire({
       text: `${fields}`,

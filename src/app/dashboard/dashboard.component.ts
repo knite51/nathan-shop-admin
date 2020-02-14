@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
 
   reportArray: any = {
     total_users: 0,
-    active_shops: 0,
+    total_products: 0,
     completed_orders: 0,
     pending_orders: 0,
     daily_orders: [],
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
       } = res;
       this.reportArray = data;
       const chartReport1 = this.extractReportForChart1(daily_orders);
-      // console.log(res, "chrtRep");
+      console.log(res, "chrtRep");
       this.myChartData.data.labels = chartReport1.labels;
       this.myChartData.data.datasets[0].data = chartReport1.count;
       this.myChartData.data.datasets[0].label = "Daily Report";

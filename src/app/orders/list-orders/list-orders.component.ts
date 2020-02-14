@@ -25,7 +25,6 @@ export class ListOrdersComponent implements OnInit {
   };
   pageNumber = 1;
   dataSource = [];
-  loggedInShop: any = {};
 
   constructor(
     private router: Router,
@@ -34,20 +33,16 @@ export class ListOrdersComponent implements OnInit {
     private genServ: GeneralService,
     localStorage: LocalStorageService
   ) {
-    this.loggedInShop = JSON.parse(
-      localStorage.getFromLocalStorage("ShopDetails")
-    );
-    const shopId = this.loggedInShop.uuid;
     this.route.params.subscribe((par: Params) => {
       const { pageNumber } = par;
       Number(pageNumber) === 1
-        ? this.getOrders(shopId)
-        : this.handleReloadOnPagination(pageNumber, shopId);
+        ? this.getOrders()
+        : this.handleReloadOnPagination(pageNumber);
     });
   }
 
-  private getOrders(id) {
-    const apiUrl = `${this.endpoint.ordersUrl.getViewOrders}/list/${id}`;
+  private getOrders() {
+    const apiUrl = `${this.endpoint.ordersUrl.getViewOrders}/list/`;
     this.endpoint.fetch(apiUrl).subscribe(res => {
       // console.log(res, "orders");
       this.setDataSource(res);
@@ -107,7 +102,7 @@ export class ListOrdersComponent implements OnInit {
         res !== null ? this.setDataSource(res) : (this.dataSource = []);
       });
     } else {
-      this.getOrders(this.loggedInShop.uuid);
+      this.getOrders();
       this.paginationUrl = {
         next: "",
         prev: "",
@@ -117,11 +112,11 @@ export class ListOrdersComponent implements OnInit {
     }
   }
 
-  handleReloadOnPagination(pageNumber, shopId) {
+  handleReloadOnPagination(pageNumber) {
     // console.log(pageNumber, "hlo");
     this.endpoint
       .fetchPaginationPage(
-        `https://api-dev.natanshield.com/api/v1/super/orders/list/${shopId}?perPage=10&page=${pageNumber}`
+        `https://api-dev.natanshield.com/api/v1/shop/orders/list?perPage=10&page=${pageNumber}`
       )
       .subscribe(res => {
         // console.log(res, "pagenate reload pageNumber");

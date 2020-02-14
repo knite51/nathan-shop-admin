@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { LocalStorageService } from "./utils/localStorage.service";
@@ -9,9 +9,9 @@ import { GeneralService } from "./services/general.service";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "nathan-admin";
-  loginRegisterResetPwdUrl = false;
+  loginRegisterResetPwdUrl = true;
 
   constructor(
     location: Location,
@@ -26,7 +26,9 @@ export class AppComponent {
           ? true
           : false;
     });
+  }
 
+  ngOnInit() {
     // set roles view grant
     if (this.localStorage.getFromLocalStorage("ShopAdminUserInfo") !== null) {
       const adminRole = JSON.parse(

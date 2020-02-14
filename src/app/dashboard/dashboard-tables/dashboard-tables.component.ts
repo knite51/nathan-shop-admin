@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { LocalStorageService } from "src/app/utils/localStorage.service";
 
 @Component({
   selector: "app-dashboard-tables",
@@ -22,12 +23,18 @@ export class DashboardTablesComponent implements OnInit {
   filterValue = "";
 
   pageTitle = "";
+  loggedInShop: any = {};
 
   constructor(
     private endpoints: EndpointsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    localStorage: LocalStorageService
   ) {
+    this.loggedInShop = JSON.parse(
+      localStorage.getFromLocalStorage("ShopDetails")
+    );
+
     this.route.queryParams.subscribe(res => {
       const { viewpage } = res;
       this.pageTitle = viewpage;
@@ -39,11 +46,11 @@ export class DashboardTablesComponent implements OnInit {
     let apiUrl = "";
     switch (type) {
       case "Users":
-        apiUrl = `${this.endpoints.customersUrl.createGetUpdateDeleteCustomers}/list`;
+        apiUrl = `${this.endpoints.adminUsersUrl.createGetUpdateDeleteAdmin}/list`;
         break;
-      // case "Active-Shops":
-      //   apiUrl = `${this.endpoints.shopUrl.getActiveShops}`;
-      //   break;
+      case "Total-Products":
+        apiUrl = `${this.endpoints.productsUrl.createGetUpdateDeleteProducts}/list/${this.loggedInShop.uuid}`;
+        break;
       case "Completed-Orders":
         apiUrl = `${this.endpoints.ordersUrl.completed}`;
         break;
@@ -90,14 +97,14 @@ export class DashboardTablesComponent implements OnInit {
       switch (this.pageTitle) {
         case "Users":
           apiUrl = `${
-            this.endpoints.customersUrl.createGetUpdateDeleteCustomers
+            this.endpoints.adminCategoryUrl.createGetUpdateDeleteAdminCategory
           }/search?q=${filterValue.toLowerCase()}&perPage=10`;
           break;
-        // case "Active-Shops":
-        //   apiUrl = `${
-        //     this.endpoints.shopUrl.createGetUpdateDeleteShop
-        //   }/search?q=${filterValue.toLowerCase()}&perPage=10&status=active`;
-        //   break;
+        case "Total-Products":
+          apiUrl = `${
+            this.endpoints.productsUrl.createGetUpdateDeleteProducts
+          }/search?product=${filterValue.toLowerCase()}&perPage=10`;
+          break;
         case "Completed-Orders":
           apiUrl = `${
             this.endpoints.ordersUrl.getViewOrders
@@ -128,16 +135,16 @@ export class DashboardTablesComponent implements OnInit {
     let apiUrl = "";
     switch (this.pageTitle) {
       case "Users":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/super/customers/list?page=${pageNumber}`;
+        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/customers/list?page=${pageNumber}`;
         break;
-      case "Active-Shops":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/super/shops/list?status=active&page=${pageNumber}`;
+      case "Total-Products":
+        apiUrl = `https://api-dev.natanshield.com/api/v1/products/list/${this.loggedInShop.uuid}?perPage=10&page=${pageNumber}`;
         break;
       case "Completed-Orders":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/super/orders/list?status=completed&page=${pageNumber}`;
+        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/orders/list?status=completed&page=${pageNumber}`;
         break;
       case "Pending-Orders":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/super/orders/list?status=pending&page=${pageNumber}`;
+        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/orders/list?status=pending&page=${pageNumber}`;
         break;
     }
     this.endpoints.fetchPaginationPage(apiUrl).subscribe(res => {

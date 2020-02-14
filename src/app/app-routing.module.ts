@@ -18,11 +18,16 @@ import { ResetPasswordComponent } from "./auth/reset-password/reset-password.com
 import { ListOrdersComponent } from "./orders/list-orders/list-orders.component";
 import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component";
 import { AuthGuard } from "./auth/auth.guard";
+import { DashboardTablesComponent } from "./dashboard/dashboard-tables/dashboard-tables.component";
 
 const routes: Routes = [
   {
     path: "adminDashboard",
     component: DashboardComponent
+  },
+  {
+    path: "adminDashboard/list",
+    component: DashboardTablesComponent
   },
   {
     path: "admin-user-profile",
@@ -91,7 +96,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: "reset-password",
+    path: "reset-password/:token",
     component: ResetPasswordComponent
   },
   { path: "", redirectTo: "adminDashboard", pathMatch: "full" },
