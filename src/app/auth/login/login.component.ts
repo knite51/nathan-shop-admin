@@ -100,25 +100,17 @@ export class LoginComponent implements OnInit {
             address,
             city
           });
+
           // reset all other api calls headers
           this.endpoints.httpStatus = "allCalls";
           // Navigate to View
-          this.backToPreviousPage();
+          this.router.navigate(["/adminDashboard"]);
         },
         error => {
           console.log(error, "lol");
           this.genServ.sweetAlertAuthVerification("Invalid Credentials.");
         }
       );
-    }
-  }
-
-  backToPreviousPage() {
-    const url = this.route.snapshot.queryParams.redirectTo;
-    if (url) {
-      this.router.navigate([`${url}`]);
-    } else {
-      this.router.navigate(["/adminDashboard"]);
     }
   }
 }

@@ -1,5 +1,3 @@
-
-
 <body class="vertical-layout vertical-menu-modern 1-column  blank-page" id="LoginForm" data-open="click"
   data-menu="vertical-menu-modern" data-col="1-column">
   <!-- BEGIN: Content-->
@@ -8,89 +6,94 @@
       <div class="content-header row mb-1">
       </div>
       <div class="content-body">
- <section class="flexbox-container">
-   <div class="col-12 d-flex align-items-center justify-content-center">
-     <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
-       <div class="card border-grey border-lighten-3 ">
+        <section class="flexbox-container">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
+              <div class="card border-grey border-lighten-3 ">
 
-      <div class="login-form">
-        <div class="main-div" *ngIf="!isResetPassword; else reset">
-          <div class="panel">
-            <h2>Shop Admin Login</h2>
-            <p>Please enter your email and password</p>
-          </div>
-          <form id="Login">
-
-            <div class="form-group">
-              <input type="email" class="form-control" id="email" placeholder="Your Email" name="email"
-                [(ngModel)]="credentials.email" required>
-              <div class="form-control-position">
-                <i class="ft-mail"></i>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input type="password" class="form-control" id="user-password" placeholder="Enter Password"
-                name="password" [(ngModel)]="credentials.password" required>
-              <div class="form-control-position">
-                <i class="la la-key"></i>
-              </div>
-            </div>
-
-            <div class="forgot">
-              <a (click)="handleForgotPass()">Forgot password?</a>
-            </div>
-
-            <button type="button" (click)="handleLogin()" class="btn btn-outline-info btn-block"
-              [disabled]="credentials.email === '' || credentials.password === ''"><i class="ft-unlock"></i>
-              Login As Shop Admin</button>
-
-          </form>
-        </div>
-
-        <ng-template #reset>
-          <div class="main-div">
-            <div class="panel">
-              <h2>Shop Admin Reset Password</h2>
-              <p>Please enter your email</p>
-            </div>
-            <form id="Login">
-
-              <div class="form-group">
-                <input type="email" class="form-control" id="email" placeholder="Your Email" name="email"
-                  [(ngModel)]="resetEmail.email" required>
-                <div class="form-control-position">
-                  <i class="ft-mail"></i>
+                <div class="card-header border-0">
+                  <div class="card-title text-center" style="background: #2C303B;margin: -21px;">
+                    <img src="assets/images/nathanLogos/svg.svg" width="50%" alt="branding logo">
+                  </div>
                 </div>
+
+                <div class="login-form">
+                  <div class="main-div" *ngIf="!isResetPassword; else reset">
+                    <div class="panel">
+                      <h2>Shop Admin Login</h2>
+                      <p>Please enter your email and password</p>
+                    </div>
+                    <form id="Login">
+
+                      <div class="form-group">
+                        <input type="email" class="form-control" id="email" placeholder="Your Email" name="email"
+                          [(ngModel)]="credentials.email" required>
+                        <div class="form-control-position">
+                          <!-- <i class="ft-mail"></i> -->
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <input type="password" class="form-control" id="user-password" placeholder="Enter Password"
+                          name="password" [(ngModel)]="credentials.password" required>
+                        <div class="form-control-position">
+                          <!-- <i class="la la-key"></i> -->
+                        </div>
+                      </div>
+
+                      <div class="forgot">
+                        <a (click)="handleForgotPass()">Forgot password?</a>
+                      </div>
+
+                      <button type="button" (click)="handleLogin()" class="btn btn-outline-info btn-block"
+                        [disabled]="credentials.email === '' || credentials.password === ''"><i class="ft-unlock"></i>
+                        Login As Shop Admin</button>
+
+                    </form>
+                  </div>
+
+                  <ng-template #reset>
+                    <div class="main-div">
+                      <div class="panel">
+                        <h2>Shop Admin Reset Password</h2>
+                        <p>Please enter your email</p>
+                      </div>
+                      <form id="Login">
+
+                        <div class="form-group">
+                          <input type="email" class="form-control" id="email" placeholder="Your Email" name="email"
+                            [(ngModel)]="resetEmail.email" required>
+                          <div class="form-control-position">
+                            <i class="ft-mail"></i>
+                          </div>
+                        </div>
+
+                        <div class="forgot">
+                          <a (click)="handleForgotPass('goBack')" class="card-link">Go Back?</a>
+
+                        </div>
+
+                        <button type="button" (click)="handlePassReset()" class="btn btn-outline-info btn-block"
+                          [disabled]="resetEmail.email === ''"><i class="ft-unlock"></i>
+                          Send Reset Email</button>
+
+                      </form>
+                    </div>
+
+                  </ng-template>
+
+                </div>
+
+
+
+
               </div>
-
-              <div class="forgot">
-                <a (click)="handleForgotPass('goBack')" class="card-link">Go Back?</a>
-
-              </div>
-
-              <button type="button" (click)="handlePassReset()" class="btn btn-outline-info btn-block"
-                [disabled]="resetEmail.email === ''"><i class="ft-unlock"></i>
-                Send Reset Email</button>
-
-            </form>
+            </div>
           </div>
-
-        </ng-template>
-
-      </div>
-       
-
-
-
-       </div>
-     </div>
-   </div>
- </section>
+        </section>
 
       </div>
     </div>
   </div>
 
 </body>
-

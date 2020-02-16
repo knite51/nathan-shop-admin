@@ -46,7 +46,7 @@ export class DashboardTablesComponent implements OnInit {
     let apiUrl = "";
     switch (type) {
       case "Users":
-        apiUrl = `${this.endpoints.adminUsersUrl.createGetUpdateDeleteAdmin}/list`;
+        apiUrl = `${this.endpoints.adminUsersUrl.createGetUpdateDeleteAdmin}/list/${this.loggedInShop.uuid}`;
         break;
       case "Total-Products":
         apiUrl = `${this.endpoints.productsUrl.createGetUpdateDeleteProducts}/list/${this.loggedInShop.uuid}`;
@@ -97,8 +97,10 @@ export class DashboardTablesComponent implements OnInit {
       switch (this.pageTitle) {
         case "Users":
           apiUrl = `${
-            this.endpoints.adminCategoryUrl.createGetUpdateDeleteAdminCategory
-          }/search?q=${filterValue.toLowerCase()}&perPage=10`;
+            this.endpoints.adminUsersUrl.createGetUpdateDeleteAdmin
+          }/search/${
+            this.loggedInShop.uuid
+          }?q=${filterValue.toLowerCase()}&perPage=10`;
           break;
         case "Total-Products":
           apiUrl = `${
@@ -135,7 +137,7 @@ export class DashboardTablesComponent implements OnInit {
     let apiUrl = "";
     switch (this.pageTitle) {
       case "Users":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/customers/list?page=${pageNumber}`;
+        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/admin/list/${this.loggedInShop.uuid}?perPage=10&page=${pageNumber}`;
         break;
       case "Total-Products":
         apiUrl = `https://api-dev.natanshield.com/api/v1/products/list/${this.loggedInShop.uuid}?perPage=10&page=${pageNumber}`;

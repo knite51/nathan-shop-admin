@@ -3,13 +3,6 @@ import Chart from "chart.js";
 import { Router, ActivatedRoute } from "@angular/router";
 import { EndpointsService } from "../services/config/endpoints.service";
 
-// import { MatPaginator } from "@angular/material/paginator";
-// import { MatSort } from "@angular/material/sort";
-// import { MatTableDataSource } from "@angular/material/table";
-// import { EndpointsService } from "../services/config/endpoints.service";
-// import { GeneralService } from "../services/general.service";
-// import { Router, ActivatedRoute } from "@angular/router";
-
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",

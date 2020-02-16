@@ -9,7 +9,7 @@ import { GeneralService } from "./services/general.service";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = "nathan-admin";
   loginRegisterResetPwdUrl = true;
 
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  onActivate(event) {
     // set roles view grant
     if (this.localStorage.getFromLocalStorage("ShopAdminUserInfo") !== null) {
       const adminRole = JSON.parse(
@@ -40,9 +40,8 @@ export class AppComponent implements OnInit {
     } else {
       this.genServ.permissionRole.next(false);
     }
-  }
+    // set roles view grant ENDS
 
-  onActivate(event) {
     let scrollToTop = window.setInterval(() => {
       let pos = window.pageYOffset;
       if (pos > 0) {
