@@ -30,7 +30,9 @@ export class EndpointsService {
 
   public productsUrl = {
     createGetUpdateDeleteProducts: "products",
-    uploadProductBulk: "products/import"
+    uploadProductBulk: "products/import",
+    featuredProduct: "shop/theme/featured_products",
+    recommendedProduct: "shop/theme/recommended_products"
   };
 
   public categoriesUrl = {

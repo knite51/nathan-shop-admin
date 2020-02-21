@@ -47,6 +47,9 @@ import { ResetPasswordComponent } from "./auth/reset-password/reset-password.com
 import { ListOrdersComponent } from "./orders/list-orders/list-orders.component";
 import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component";
 import { DashboardTablesComponent } from "./dashboard/dashboard-tables/dashboard-tables.component";
+import { FeaturedProductComponent } from "./settings/featured-product/featured-product.component";
+import { RecommendedProductComponent } from "./settings/recommended-product/recommended-product.component";
+import { SettingsDasboardComponent } from "./settings/settings-dasboard/settings-dasboard.component";
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { DashboardTablesComponent } from "./dashboard/dashboard-tables/dashboard
     ResetPasswordComponent,
     ListOrdersComponent,
     ViewOrdersComponent,
-    DashboardTablesComponent
+    DashboardTablesComponent,
+    SettingsDasboardComponent,
+    FeaturedProductComponent,
+    RecommendedProductComponent
   ],
   imports: [
     AppRoutingModule,

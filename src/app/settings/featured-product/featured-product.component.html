@@ -1,0 +1,156 @@
+   <div class="app-content">
+     <div class="content-wrapper">
+       <div class="content-body"></div>
+       <!-- Create Product -->
+       <section id="book-appointment">
+         <div class="card">
+
+           <div class="card-header">
+             <div class="row">
+               <div class="col-md-10">
+                 <h4 class="card-title">SET FEATURED PRODUCTS</h4>
+                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+               </div>
+               <div class="col-md-2">
+                 <button class="btn btn-sm btn-blue-grey" (click)="backToPreviousPage()"
+                   style="float: right;">Back</button>
+               </div>
+             </div>
+
+
+             <hr>
+           </div>
+
+
+           <div class="card-body">
+             <form>
+               <div class="row">
+                 <div class="col-md-6">
+                   <div class="form-group">
+                     <label for="description">Select Product: <span class="text-danger">*</span></label>
+                     <select class="form-control" placeholder="Description" name="description" required
+                       [(ngModel)]="selectedProductId" (change)="handleSaveToProductsArr()">
+                       <option value="">Select Product</option>
+                       <option [value]="product.uuid" *ngFor="let product of productList">{{product.name}}
+                       </option>
+                     </select>
+                   </div>
+                 </div>
+
+                 <div class="col-lg-6 col-md-6">
+                   <div class="form-group">
+                     <label for="gender">Featured Product Added:</label>
+                     <textarea class="form-control" placeholder="featured product" name="shops" cols="10" rows="5"
+                       disabled>{{productsNameForDisplay | async  }}</textarea>
+                   </div>
+                 </div>
+               </div>
+
+               <div class="card-footer ml-auto">
+                 <button type="button" (click)="handleSetFeaturedProducts()"
+                   class="btn btn-outline-success mr-1">Submit</button>
+               </div>
+             </form>
+
+             <!-- TABLE -->
+             <div class="content-detached content-right">
+
+               <div class="product-shop">
+
+                 <div class="row match-height">
+                   <div class="table-responsive">
+
+
+                     <table class="table table-striped table-bordered Products-list"
+                       *ngIf="dataSourceProductFeatured.length !== 0; else noItems;">
+                       <thead>
+                         <tr>
+                           <th>Index</th>
+                           <th>Name</th>
+                           <th>Description</th>
+                           <th>SKU</th>
+                           <th>Category</th>
+                           <th>Weight</th>
+                           <th>Size</th>
+                           <th>Color</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <tr *ngFor="let product of dataSourceProductFeatured;let i = index;">
+                           <td>
+                             {{i + paginationUrl.viewCountStart}}</td>
+                           <td>
+                             {{product.name}}</td>
+                           <td>
+                             {{product.description}}</td>
+                           <td>
+                             {{product.sku}}</td>
+                           <td>
+                             {{product.category.name}}</td>
+                           <td>
+                             {{product.options[0].weight}}</td>
+                           <td>
+                             {{product.options[0].size | uppercase}}</td>
+                           <td>
+                             {{product.options[0].color}}</td>
+                         </tr>
+                       </tbody>
+                     </table>
+
+                     <ng-template #noItems>
+                       <mat-card class="text-center">No Items Available</mat-card>
+                     </ng-template>
+
+
+                     <div class="mat-paginator-outer-container">
+                       <div class="mat-paginator-container">
+                         <div class="mat-paginator-page-size ng-star-inserted">
+                           <div class="mat-paginator-page-size-label">Items per page:</div>
+                           <div class="ng-star-inserted">10</div>
+                         </div>
+                         <div class="mat-paginator-range-actions">
+                           <div class="mat-paginator-range-label">{{paginationUrl.viewCountStart}} -
+                             {{paginationUrl.viewCountEnd}}
+                             of
+                             {{totalItemCount}}
+                           </div>
+
+                           <button class="mat-paginator-navigation-previous mat-icon-button" mat-icon-button=""
+                             type="button" [disabled]="!paginationUrl?.prev" (click)="handlePagination('previous')">
+                             <span class="mat-button-wrapper">
+                               <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                                 <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+                               </svg>
+                             </span>
+                             <div class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                             </div>
+                             <div class="mat-button-focus-overlay"></div>
+                           </button>
+
+                           <button class="mat-paginator-navigation-next mat-icon-button" mat-icon-button=""
+                             type="button" [disabled]="!paginationUrl?.next" (click)="handlePagination('next')">
+                             <span class="mat-button-wrapper">
+                               <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                               </svg>
+                             </span>
+                             <div class="mat-button-ripple mat-ripple mat-button-ripple-round"></div>
+                             <div class="mat-button-focus-overlay"></div>
+                           </button>
+
+                         </div>
+                       </div>
+                     </div>
+
+
+                   </div>
+                 </div>
+
+               </div>
+             </div>
+           </div>
+         </div>
+       </section>
+
+     </div>
+   </div>

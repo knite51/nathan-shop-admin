@@ -66,6 +66,17 @@
               data-original-title="User Interface"></i>
           </li>
 
+          <ng-container *ngIf="genServ.permissionRole | async">
+
+
+            <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/settings')}">
+              <a routerLink="/settings/dashboard"><i class="ft-settings icon-left"></i>
+                <span class="menu-title" data-i18n="">Settings
+                </span>
+              </a>
+            </li>
+          </ng-container>
+
 
 
           <li class=" nav-item"><a routerLink="/admin-user-profile"><i class="la la-user-secret"></i><span

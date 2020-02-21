@@ -19,6 +19,9 @@ import { ListOrdersComponent } from "./orders/list-orders/list-orders.component"
 import { ViewOrdersComponent } from "./orders/view-orders/view-orders.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { DashboardTablesComponent } from "./dashboard/dashboard-tables/dashboard-tables.component";
+import { FeaturedProductComponent } from "./settings/featured-product/featured-product.component";
+import { RecommendedProductComponent } from "./settings/recommended-product/recommended-product.component";
+import { SettingsDasboardComponent } from "./settings/settings-dasboard/settings-dasboard.component";
 
 const routes: Routes = [
   {
@@ -81,6 +84,22 @@ const routes: Routes = [
     path: "categoryInsight/view/:categoryId",
     component: ViewCategoryComponent
   },
+  {
+    path: "settings/dashboard",
+    component: SettingsDasboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "settings/set-featured-products/pages/:pageNumber",
+    component: FeaturedProductComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "settings/set-recommended-products/pages/:pageNumber",
+    component: RecommendedProductComponent,
+    canActivate: [AuthGuard]
+  },
+
   {
     path: "productInsight/add",
     component: AddProductComponent,
