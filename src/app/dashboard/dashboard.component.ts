@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   pageNumber = 1;
   dataSourceOrder = [];
   filterValue = "";
+  public clicked; clicked1; clicked2; clicked3
 
   reportArray: any = {
     total_users: 0,
