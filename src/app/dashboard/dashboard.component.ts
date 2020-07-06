@@ -200,7 +200,7 @@ export class DashboardComponent implements OnInit {
     console.log(pageNumber, "hlo");
     this.endpoints
       .fetchPaginationPage(
-        `https://api-dev.natanshield.com/api/v1/super/orders/list?perPage=10&page=${pageNumber}`
+        `https://api.natanmarket.com/api/v1/super/orders/list?perPage=10&page=${pageNumber}`
       )
       .subscribe(res => {
         console.log(res, "pagenate reload pageNumber");

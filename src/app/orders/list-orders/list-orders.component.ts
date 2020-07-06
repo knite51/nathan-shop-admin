@@ -116,7 +116,7 @@ export class ListOrdersComponent implements OnInit {
     // console.log(pageNumber, "hlo");
     this.endpoint
       .fetchPaginationPage(
-        `https://api-dev.natanshield.com/api/v1/shop/orders/list?perPage=10&page=${pageNumber}`
+        `https://api.natanmarket.com/api/v1/shop/orders/list?perPage=10&page=${pageNumber}`
       )
       .subscribe(res => {
         // console.log(res, "pagenate reload pageNumber");

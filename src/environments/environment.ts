@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://api-dev.natanshield.com/api/v1/"
+  apiUrl: "https://api.natanmarket.com/api/v1/"
 };
 
 /*

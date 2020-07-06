@@ -137,16 +137,16 @@ export class DashboardTablesComponent implements OnInit {
     let apiUrl = "";
     switch (this.pageTitle) {
       case "Users":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/admin/list/${this.loggedInShop.uuid}?perPage=10&page=${pageNumber}`;
+        apiUrl = `https://api.natanmarket.com/api/v1/shop/admin/list/${this.loggedInShop.uuid}?perPage=10&page=${pageNumber}`;
         break;
       case "Total-Products":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/products/list/${this.loggedInShop.uuid}?perPage=10&page=${pageNumber}`;
+        apiUrl = `https://api.natanmarket.com/api/v1/products/list/${this.loggedInShop.uuid}?perPage=10&page=${pageNumber}`;
         break;
       case "Completed-Orders":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/orders/list?status=completed&page=${pageNumber}`;
+        apiUrl = `https://api.natanmarket.com/api/v1/shop/orders/list?status=completed&page=${pageNumber}`;
         break;
       case "Pending-Orders":
-        apiUrl = `https://api-dev.natanshield.com/api/v1/shop/orders/list?status=pending&page=${pageNumber}`;
+        apiUrl = `https://api.natanmarket.com/api/v1/shop/orders/list?status=pending&page=${pageNumber}`;
         break;
     }
     this.endpoints.fetchPaginationPage(apiUrl).subscribe(res => {

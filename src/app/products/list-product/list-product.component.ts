@@ -133,7 +133,7 @@ export class ListProductComponent implements OnInit {
   handleReloadOnPagination(pageNumber, shopId) {
     this.endpoints
       .fetchPaginationPage(
-        `https://api-dev.natanshield.com/api/v1/products/list/${shopId}?perPage=10&page=${pageNumber}`
+        `https://api.natanmarket.com/api/v1/products/list/${shopId}?perPage=10&page=${pageNumber}`
       )
       .subscribe(res => {
         this.paginationUrl = {
