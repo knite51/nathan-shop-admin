@@ -196,9 +196,13 @@ export class AddProductComponent implements OnInit {
             );
           },
           error => {
-            console.log(error, "erroring");
+            let errorMsgArray:Array<any> = [];
+            for (const [key, value] of Object.entries(error.errors)) {
+              errorMsgArray.push("<div>"+ key + ":" + value + "</div><br/>")
+            }
+            console.log(errorMsgArray)
             this.genServ.sweetAlertAuthVerification(
-              "Error!! Bulk Product could not be created"
+              errorMsgArray.length ? errorMsgArray.join("") : error.message
             );
           }
         );

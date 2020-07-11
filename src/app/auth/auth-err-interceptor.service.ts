@@ -28,6 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError(err => {
         // console.log(err, "errror inter");
 
+        let error;
         switch (err.status) {
           case 500:
             // auto logout if 401 response returned from api
@@ -36,8 +37,12 @@ export class ErrorInterceptor implements HttpInterceptor {
             //   // console.log("res", redirectUrl);
             // });
             break;
+          case 422:
+            error = err.error;
+            break;
+          default:
+            error = err.error.message ? err.error.message : "";
         }
-        const error = err.error.message ? err.error.message : "";
         return throwError(error);
       })
     );
